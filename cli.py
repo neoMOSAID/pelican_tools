@@ -28,22 +28,29 @@ def cmd_article(args):
 
 
 def cmd_banner(args):
-    """Generate a banner from a design preset."""
+    """Generate a banner from a design preset or a complete TOML config file."""
     from banner_generator.core.context import BannerContext
     from banner_generator.core.renderer import BannerRenderer
 
     bcfg = BannerConfig()
-    design_path = bcfg.DESIGNS_DIR / f"{args.design}.banner.toml"
-    if not design_path.exists():
-        sys.exit(f"❌ Design not found: {design_path}")
-
     out_dir = Path(args.out_dir) if args.out_dir else bcfg.OUTPUT_DIR
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    ctx = BannerContext.from_toml(design_path, themes_dir=bcfg.THEMES_DIR)
+    if args.file:
+        # ── custom TOML file supplied ──
+        config_path = args.file.resolve()
+        if not config_path.exists():
+            sys.exit(f"❌ Config file not found: {config_path}")
+        ctx = BannerContext.from_toml(config_path, themes_dir=bcfg.THEMES_DIR)
+    else:
+        # ── design preset (existing behaviour) ──
+        design_path = bcfg.DESIGNS_DIR / f"{args.design}.banner.toml"
+        if not design_path.exists():
+            sys.exit(f"❌ Design not found: {design_path}")
+        ctx = BannerContext.from_toml(design_path, themes_dir=bcfg.THEMES_DIR)
 
+    # ── render SVG ──
     if args.png or not args.svg:
-        # Rasterizing: render static then convert
         ctx.config["render_mode"] = "static"
         svg = BannerRenderer(ctx).compose()
         svg_path = out_dir / "banner.svg"
@@ -151,7 +158,9 @@ def main():
 
     # ---- banner subcommand ----
     ban = sub.add_parser("banner", help="Generate a banner from a design preset")
-    ban.add_argument("--design", required=True, help="Design name (e.g. vim_article)")
+    group = ban.add_mutually_exclusive_group(required=True)
+    group.add_argument('--design', help='Design name (e.g. vim_article)')
+    group.add_argument('--file', type=Path, help='Path to a complete banner .toml configuration')
     ban.add_argument("--out-dir", default=None, help="Output directory (default: banner_generator/output)")
     ban.add_argument("--svg", action="store_true", help="Output SVG only")
     ban.add_argument("--png", action="store_true", help="Output PNG")
