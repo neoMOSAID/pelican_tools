@@ -1,0 +1,119 @@
+
+# Database Architecture – tables, SQL snippets, terminal commands
+theme = "tech"
+size = "og"
+
+series = "STATIC, BUT SMARTER"
+title = "Mastering MySQL"
+subtitle = "Designing efficient schemas and writing optimized queries"
+meta = "Article 8 · Database Engineering"
+progress = "Part 8 of 16"
+tagline = "Where data meets performance"
+
+[components]
+show_background                = true
+show_title                     = true
+show_meta_progress             = true
+show_tagline                   = true
+show_credits                   = true
+show_badge                     = true
+show_icon                      = true
+show_terminal                  = true
+show_watermark                 = true
+show_decorations               = true
+show_status_badges             = true
+show_social_icons              = true
+show_database_relations_tables = true
+show_code_snippet              = true
+
+[credits]
+line1 = "MOSAID Tutorials"
+line2 = "mosaid.xyz"
+
+[icon]
+type = "tux"
+x = 95
+y = 465
+scale = 1.0
+
+[terminal]
+commands = [
+    "mysql -u root -p",
+    "CREATE DATABASE blog;",
+    "USE blog;",
+    "SHOW TABLES;",
+    "EXPLAIN SELECT * FROM posts WHERE author_id = 42;"
+]
+show_serving = true
+typing = true
+
+[database_relations_tables]
+tables = [
+    { name = "users", columns = ["id PK", "name", "email", "created_at"] },
+    { name = "posts", columns = ["id PK", "user_id FK", "title", "content", "published"] },
+    { name = "comments", columns = ["id PK", "post_id FK", "user_id FK", "body"] }
+]
+x = 85
+y_offset = 20
+table_width = 210
+gap_between_tables = 30
+
+[code_snippet]
+language = "sql"
+title = "Optimized query"
+code = [
+    "SELECT u.name, COUNT(p.id) as post_count",
+    "FROM users u",
+    "LEFT JOIN posts p ON u.id = p.user_id",
+    "WHERE u.active = 1",
+    "GROUP BY u.id",
+    "HAVING post_count > 5;"
+]
+x = 85
+y = 420
+line_numbers = true
+
+[status_badges]
+badges = ["mysql", "acid", "indexed"]
+x = 230
+y = 579
+
+[layout]
+title_font_size      = 44
+subtitle_font_size   = 16
+title_x              = 85
+subtitle_x           = 85
+title_align          = "start"
+subtitle_align       = "start"
+title_max_width      = 660
+subtitle_max_width   = 660
+title_margin_top     = 120
+title_line_height    = 48
+subtitle_line_height = 24
+
+[badge]
+text = "DATABASE DESIGN"
+x = 85
+y = 25
+width = 220
+height = 36
+font_size = 16
+align = "start"
+
+[watermark]
+opacity = 0.35
+scale = 0.7
+rotate_dur = "35s"
+
+[decorations]
+code_rain = true
+floating_geometry = true
+scanlines = true
+pulsing_bracket = false
+
+[social_icons]
+icons = ["github", "twitter", "youtube"]
+x = 85
+y = 590
+size = 24
+gap = 12

@@ -1,0 +1,118 @@
+
+# LaTeX Article – Math & Typesetting
+theme = "latex"
+size = "og"
+
+series = "STATIC, BUT SMARTER"
+title = "LaTeX Typesetting"
+subtitle = "Write beautiful documents with LaTeX"
+meta = "Article 5 · Scientific Writing"
+progress = "Part 5 of 12"
+tagline = "Typesetting for mathematicians and scientists"
+
+[components]
+show_background      = true
+show_title           = true
+show_meta_progress   = true
+show_tagline         = true
+show_credits         = true
+show_badge           = true
+show_icon            = false
+show_watermark       = true
+show_decorations     = true
+show_status_badges   = true
+show_social_icons    = true
+show_equation        = true
+show_citation        = true
+show_latex_source    = true
+show_definition_box  = true
+
+[credits]
+line1 = "MOSAID Tutorials"
+line2 = "mosaid.xyz"
+
+[equation]
+latex = "\\int_{-\\infty}^{\\infty} e^{-x^2} dx = \\sqrt{\\pi}"
+x = 85
+y_offset = 40
+font_size = 28
+background = true
+
+[definition_box]
+term = "LaTeX"
+definition = "A high-quality typesetting system designed for the production of technical and scientific documentation."
+x = 85
+y_offset = 140
+width = 500
+
+[citation]
+text = "LaTeX is not a word processor; it encourages authors to focus on content, not formatting."
+author = "Leslie Lamport"
+source = "LaTeX: A Document Preparation System"
+x = 85
+y_offset = 260
+
+[latex_source]
+title = "minimal.tex"
+code = [
+    "\\documentclass{article}",
+    "\\usepackage{amsmath}",
+    "\\begin{document}",
+    "  \\title{My Paper}",
+    "  \\author{You}",
+    "  \\maketitle",
+    "  \\section{Introduction}",
+    "  \\begin{equation}",
+    "    E = mc^2",
+    "  \\end{equation}",
+    "\\end{document}"
+]
+x = 85
+y_offset = 420
+line_numbers = true
+
+[status_badges]
+badges = ["LaTeX", "scientific", "publishing"]
+x = 230
+y = 579
+
+[layout]
+title_font_size      = 52
+subtitle_font_size   = 22
+title_x              = 85
+subtitle_x           = 85
+title_align          = "start"
+subtitle_align       = "start"
+title_max_width      = 660
+subtitle_max_width   = 660
+title_margin_top     = 100
+title_line_height    = 56
+subtitle_line_height = 28
+
+[badge]
+text = "LATEX MASTERY"
+x = 85
+y = 25
+width = 220
+height = 36
+font_size = 16
+align = "start"
+
+[watermark]
+opacity = 0.2
+scale = 0.6
+rotate_dur = "40s"
+
+[decorations]
+code_rain = false
+floating_geometry = false
+scanlines = false
+pulsing_bracket = false
+
+[social_icons]
+icons = ["github", "twitter", "youtube"]
+x = 85
+y = 590
+size = 24
+gap = 12
+

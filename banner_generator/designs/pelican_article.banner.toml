@@ -1,0 +1,98 @@
+
+# banner_generator/designs/pelican_article.banner.toml
+
+theme = "tech"
+size = "og"
+
+series = "STATIC, BUT SMARTER"
+title = "Setting Up Pelican Like a Developer (Not a Beginner) – Static, But Smarter"
+subtitle = "A structured, production-style setup of Pelican focusing on clean architecture"
+meta = "Article 3 · Setting Up Pelican"
+progress = "Part 3 of ? 20"
+tagline = "Build your static site like a production-grade system"
+
+
+[components]
+show_background      = true
+show_title           = true
+show_meta_progress   = true
+show_tagline         = true
+show_credits         = true
+show_badge           = true
+show_icon            = true
+show_terminal        = true
+show_watermark       = true
+show_decorations     = true
+show_status_badges   = true
+show_social_icons    = true
+
+[credits]
+line1 = "MOSAID Tutorials"
+line2 = "mosaid.xyz"
+
+[terminal]
+commands = [
+    "python -m venv .venv",
+    "source .venv/bin/activate",
+    "pip install pelican",
+    "pelican-quickstart",
+    "pelican --listen"
+]
+show_serving = true
+typing = true
+
+[watermark]
+opacity = 0.55
+scale = 0.8
+offset_x = 300
+offset_y = 40
+rotate_dur = "30s"
+
+[decorations]
+code_rain = true
+floating_geometry = true
+scanlines = true
+pulsing_bracket = true
+
+[social_icons]
+icons = ["github", "twitter", "youtube"]
+x = 85
+y = 590
+size = 24
+gap = 12
+
+[layout]
+title_font_size      = 44
+subtitle_font_size   = 16
+title_x              = 85
+subtitle_x           = 85
+title_align          = "start"
+subtitle_align       = "start"   
+title_max_width      = 660
+subtitle_max_width   = 660
+title_margin_top     = 120
+title_line_height    = 48
+subtitle_line_height = 24
+
+[badge]
+text = "STATIC, BUT SMARTER"
+x = 85
+y = 25
+width = 220
+height = 36
+font_size = 16
+align = "start"
+
+[status_badges]
+badges = ["v1.0.0", "build passing", "MIT license"]
+max_badges = 4
+x = 230
+y = 579
+font_size = 12
+gap = 12
+pad = 5
+bg = "#44475a"
+fg = "#f8f8f2"
+stroke = "#50fa7b"
+opacity = 0.85
+

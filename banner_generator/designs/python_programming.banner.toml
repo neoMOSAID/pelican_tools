@@ -1,0 +1,162 @@
+
+theme = "solarized-dark"
+
+size = "og"
+
+series = "STATIC, BUT SMARTER"
+title = "Building a Modular Banner Generator for Pelican"
+title_line2 = "Programming"
+subtitle = "A deep dive into designing a banner generation system that treats visual assets "
+meta = "Article 1 · Programming"
+progress = "Part 9 of 15"
+tagline = "Write Python like a pro"
+
+[components]
+show_background = true
+show_title = true
+show_meta_progress = false
+show_tagline = true
+show_credits = true
+show_badge = true
+show_icon = true
+show_terminal = true
+show_watermark = true
+show_decorations = true
+show_status_badges = true
+show_social_icons = true
+show_vim_editor = false
+show_vim_keystrokes = false
+show_vim_statusline = false
+show_sysinfo = false
+show_bash_prompt = false
+show_package_list = false
+show_ascii_logo = false
+show_quote = false
+show_network_diagram = false
+show_database_relations_tables = false
+show_kanban = false
+show_git = false
+show_metrics = false           
+show_article_metadata = true   
+show_code_snippet = true
+show_latex_source = false
+show_definition_box = false
+show_citation = false
+show_chart_simple = false
+show_equation = false
+
+[credits]
+line1 = "MOSAID Tutorials"
+line2 = "mosaid.xyz"
+
+[terminal]
+dynamic_from_article = true
+commands = ['python -m venv .venv', 'source .venv/bin/activate', 'pip install black pytest', 'pytest tests/', 'black src/']
+show_serving = false
+typing = true   # animated typing effect
+x_offset = 30
+
+[watermark]
+opacity = 0.5
+scale = 0.7
+x_offset = 600
+y_offset = 50
+rotate_dur = "35s"
+
+[decorations]
+code_rain = true
+floating_geometry = true
+scanlines = true
+pulsing_bracket = false
+
+[social_icons]
+icons = ['github', 'twitter', 'youtube']
+x = 85
+y = 590
+size = 24
+gap = 12
+
+[status_badges]
+badges = ['pelican', 'banners', 'svg', 'python', 'automation', 'open graph', 'thumbnails']
+max_badges = 4
+x = 230
+y = 579
+font_size = 12
+gap = 12
+pad = 5
+bg = "#44475a"
+fg = "#f8f8f2"
+stroke = "#50fa7b"
+opacity = 0.85
+
+[layout]
+title_font_size = 44
+subtitle_font_size = 16
+title_x = 85
+subtitle_x = 85
+title_align = "start"
+subtitle_align = "start"
+title_max_width = 660
+subtitle_max_width = 660
+title_margin_top = 80
+title_line_height = 48
+subtitle_line_height = 24
+
+[badge]
+text = "PYTHON MASTERY"
+x = 885
+y = 25
+width = 220
+height = 36
+font_size = 16
+align = "start"   # start, middle, end
+
+[icon]
+type = "python"   # pelican, vim, tux, arch, ubuntu, custom, none
+x = 455
+y = 135
+scale = 2.9
+
+[code_snippet]
+language = "python"   # python, bash, yaml, etc.
+dynamic_from_article = true
+code = ['def timer(func):', 
+        '    def wrapper(*args, **kwargs):', 
+        '        start = time.time()', 
+        '        result = func(*args, **kwargs)', 
+        "        print(f'Time: {time.time()-start:.2f}s')", 
+        '        return result', 
+        '    return wrapper'
+    ]
+x = 85
+y_offset = -90
+title = "Decorator example"
+line_numbers = true
+width = 600
+
+[metrics]
+entries = [
+    "{user}@{hostname}",
+    "Distro: {distro}, WM: {wm}",
+    "CPU: {cpu_percent}",
+    "RAM: {ram_used} / {ram_total} ({ram_percent})",
+    "Disk: {disk_used} / {disk_total} ({disk_percent})"
+]
+x = 700
+y_offset = -60
+bar_x_offset = 220
+show_bars = true
+font_size = 14
+gap = 12
+
+[article_metadata]
+x = 550
+y = 120
+font_size = 14
+gap = 12
+icon_gap = 28
+
+# Optional: override article values
+reading_time = "10 min read"
+difficulty = "Expert"
+framework = "Pelican + Jinja"

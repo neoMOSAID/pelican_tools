@@ -1,0 +1,10 @@
+
+name = "Mathematical"
+[colors]
+bg_start = "#1a1a2e"
+bg_mid = "#16213e"
+bg_end = "#0f3460"
+title_start = "#e94560"
+title_mid = "#ff6b6b"
+title_end = "#c4f1ff"
+equation_color = "#ffd93d"

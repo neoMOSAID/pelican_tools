@@ -1,0 +1,15 @@
+
+name = "Educational"
+[colors]
+bg_start = "#ffffff"
+bg_mid = "#f0f4f8"
+bg_end = "#e2e8f0"
+title_start = "#1e3a8a"
+title_mid = "#2563eb"
+title_end = "#3b82f6"
+subtitle = "#334155"
+meta = "#64748b"
+def_bg = "#dbeafe"
+def_border = "#3b82f6"
+citation_text = "#1e293b"
+chart_bar = "#3b82f6"

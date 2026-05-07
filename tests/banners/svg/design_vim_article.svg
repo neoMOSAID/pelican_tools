@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" preserveAspectRatio="xMidYMid meet" width="1200" height="630">
+  <defs>
+<!-- Background gradients -->
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#282a36" />
+      <stop offset="50%" stop-color="#44475a" />
+      <stop offset="100%" stop-color="#282a36" />
+    </linearGradient>
+    <radialGradient id="vignette" cx="50%" cy="50%" r="70%">
+      <stop offset="50%" stop-color="#000" stop-opacity="0" />
+      <stop offset="100%" stop-color="#000" stop-opacity="0.35" />
+    </radialGradient>
+    <linearGradient id="keyLight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.06" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+    </linearGradient>
+
+    <!-- Patterns -->
+    <pattern id="dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" fill="#50fa7b" opacity="0.12" />
+    </pattern>
+    <pattern id="grid" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#50fa7b" stroke-width="0.5" opacity="0.06" />
+    </pattern>
+    <pattern id="scanlines" width="4" height="4" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="2" x2="4" y2="2" stroke="#ffffff" stroke-width="1" opacity="0.03" />
+    </pattern>
+
+    <!-- Title gradient & filters -->
+    <linearGradient id="titleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f8f8f2" />
+      <stop offset="50%" stop-color="#f1fa8c" />
+      <stop offset="100%" stop-color="#50fa7b" />
+    </linearGradient>
+    <filter id="titleShadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000000" flood-opacity="0.4" />
+    </filter>
+    <filter id="titleGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="4" result="blur" />
+      <feFlood flood-color="#94a3b8" flood-opacity="0.25" result="color" />
+      <feComposite in="color" in2="blur" operator="in" result="glow" />
+      <feMerge>
+        <feMergeNode in="glow" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <!-- Terminal glow -->
+    <filter id="termGlow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="12" result="blur" />
+      <feFlood flood-color="#94a3b8" flood-opacity="0.15" result="color" />
+      <feComposite in="color" in2="blur" operator="in" result="glow" />
+      <feMerge>
+        <feMergeNode in="glow" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <!-- Progress gradients -->
+    
+    <linearGradient id="progressGradLow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#50fa7b" />
+      <stop offset="100%" stop-color="#f1fa8c" />
+    </linearGradient>
+    <linearGradient id="progressGradMid" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f1fa8c" />
+      <stop offset="100%" stop-color="#f1fa8c" />
+    </linearGradient>
+    <linearGradient id="progressGradHigh" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff5555" />
+      <stop offset="100%" stop-color="#f1fa8c" />
+    </linearGradient>
+  </defs>
+
+  <!-- Base background -->
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <rect width="1200" height="630" fill="url(#grid)" />
+  <rect width="1200" height="630" fill="url(#dots)" />
+
+  <!-- Vignette + key light -->
+  <rect width="1200" height="630" fill="url(#vignette)" pointer-events="none" />
+  <rect width="1200" height="630" fill="url(#keyLight)" pointer-events="none" />
+
+  <!-- Watermark (single, rotating vector) -->
+  <g transform="translate(720.00, 410.00) scale(0.9)" opacity="0.3">
+    <g>
+      <animateTransform attributeName="transform" type="rotate"
+        from="0 100.00 100.00" to="360 100.00 100.00"
+        dur="25s" repeatCount="indefinite" />
+      <defs>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <pattern id="stripes" patternUnits="userSpaceOnUse" width="6" height="6">
+      <rect width="6" height="3" fill="#00ccff"/>
+      <rect y="3" width="6" height="3" fill="transparent"/>
+    </pattern>
+    <clipPath id="topHalf"><rect x="0" y="0" width="200" height="85"/></clipPath>
+    <clipPath id="bottomHalf"><rect x="0" y="115" width="200" height="85"/></clipPath>
+  </defs>
+  <circle cx="100" cy="100" r="90" fill="none" stroke="#00ccff" stroke-opacity="0.6" stroke-width="2" filter="url(#glow)"/>
+  <circle cx="100" cy="100" r="90" fill="url(#stripes)" clip-path="url(#topHalf)"/>
+  <circle cx="100" cy="100" r="90" fill="#00ccff" clip-path="url(#bottomHalf)"/>
+  <line x1="40" y1="92" x2="160" y2="92" stroke="#00ccff" stroke-opacity="0.7" stroke-width="1" filter="url(#glow)"/>
+  <line x1="40" y1="108" x2="160" y2="108" stroke="#00ccff" stroke-opacity="0.7" stroke-width="1" filter="url(#glow)"/>
+  <text x="100" y="100" text-anchor="middle" dominant-baseline="middle" font-family="monospace" font-size="14" fill="#00ccff" filter="url(#glow)">MOSAID Tutorials</text>
+    </g>
+  </g>
+
+  <!-- Code rain -->
+  <g opacity="0.03" font-family="'JetBrains Mono', monospace" font-size="16" fill="#f8f8f2">
+    <text x="50" y="180">def build():</text>
+    <text x="230" y="260">&lt;html&gt;</text>
+    <text x="500" y="210">import pelican</text>
+    <text x="180" y="510">class Site</text>
+    <text x="850" y="590">git commit</text>
+    <text x="1050" y="170">pip install</text>
+    <text x="300" y="560">yaml.load</text>
+  </g>
+
+  <!-- Floating geometry -->
+  <g opacity="0.1">
+    <circle cx="100" cy="570" r="8" fill="none" stroke="#50fa7b" stroke-width="2">
+      <animateTransform attributeName="transform" type="translate" values="0,0; 0,-8; 0,0" dur="6s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="1150" cy="130" r="12" fill="none" stroke="#50fa7b" stroke-width="1.5">
+      <animateTransform attributeName="transform" type="translate" values="0,0; 0,10; 0,0" dur="7s" repeatCount="indefinite" />
+    </circle>
+    <polygon points="560,80 570,100 550,110" fill="none" stroke="#50fa7b" stroke-width="1">
+      <animateTransform attributeName="transform" type="rotate" values="0 560 95; 10 560 95; 0 560 95" dur="10s" repeatCount="indefinite" />
+    </polygon>
+  </g>
+
+  <!-- Decorative bracket -->
+  <g opacity="0.08" fill="none" stroke="#ff79c6" stroke-width="4" font-family="'JetBrains Mono', monospace" font-size="90" font-weight="bold">
+    <text x="980" y="550" fill="#ff79c6" stroke="none">&#123; &#125;
+      <animate attributeName="opacity" values="0.6; 1; 0.6" dur="6s" repeatCount="indefinite" />
+    </text>
+  </g>
+  <rect width="1200" height="630" fill="url(#scanlines)" pointer-events="none" />
+  <!-- Title block -->
+  <text x="85" y="120" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="44" fill="url(#titleGrad)" font-weight="800"  text-anchor="start" opacity="0.3" filter="url(#titleGlow)">Vim Wizardry</text>
+  <text x="85" y="120" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="44" fill="url(#titleGrad)" font-weight="800"  text-anchor="start" filter="url(#titleShadow)">Vim Wizardry</text>
+  <rect x="85" y="149" width="360" height="3" rx="1.5" fill="url(#titleGrad)" opacity="0.35" filter="url(#titleGlow)" />
+  <text x="85" y="178" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="44" fill="url(#titleGrad)" font-weight="800"  text-anchor="start" filter="url(#titleShadow)" letter-spacing="-1.5">Beyond the Basics</text>
+  <text x="85" y="246" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="16" fill="#bd93f9" font-weight="600"  text-anchor="start" >Learn the keystrokes that make you fly</text>
+  <!-- Meta & progress -->
+  <text x="85" y="310" font-family="'JetBrains Mono', 'SF Mono', monospace" font-size="22" fill="#6272a4" font-weight="600" text-anchor="start">Article 7 · Editor Productivity</text>
+  <rect x="85" y="335" width="560" height="6" rx="3" fill="#44475a" />
+  <rect x="85" y="335" width="392" height="6" rx="3" fill="url(#progressGradMid)" />
+  <text x="85" y="359" font-family="'JetBrains Mono', monospace" font-size="13" fill="#6272a4">Part 7 of 10</text>
+
+  <!-- Separator & tagline -->
+  <line x1="85" y1="527" x2="645" y2="527" stroke="#6272a4" stroke-width="0.5" opacity="0.5" />
+  <text x="85" y="548" font-family="'Inter', sans-serif" font-size="16"
+        fill="#6272a4" font-style="italic" text-anchor="start">
+    Exit Vim? No, stay forever.
+  </text>
+  <!-- Vim editor window -->
+  <rect x="700" y="80" width="440" height="320" rx="10" fill="#1e1e2e" fill-opacity="0.95" stroke="#313244" stroke-width="2" />
+  <rect x="700" y="80" width="440" height="32" rx="10" fill="#45475a" />
+  <rect x="700" y="92" width="440" height="20" fill="#45475a" />
+  <circle cx="716" cy="96" r="6" fill="#ff5555" />
+  <circle cx="736" cy="96" r="6" fill="#ffb86c" />
+  <circle cx="756" cy="96" r="6" fill="#50fa7b" />
+  <text x="920.0" y="102" font-family="'Inter', sans-serif" font-size="12" fill="#cdd6f4" text-anchor="middle" font-weight="500">VIM – init.lua</text>
+  <text x="718" y="137" font-family="'JetBrains Mono', monospace" font-size="13" fill="#6272a4" text-anchor="end">1</text>
+  <text x="746" y="137" font-family="'JetBrains Mono', monospace" font-size="15" fill="#f8f8f2">vim.opt.number = true</text>
+  <text x="718" y="159" font-family="'JetBrains Mono', monospace" font-size="13" fill="#6272a4" text-anchor="end">2</text>
+  <text x="746" y="159" font-family="'JetBrains Mono', monospace" font-size="15" fill="#f8f8f2">vim.opt.relativenumber = true</text>
+  <text x="718" y="181" font-family="'JetBrains Mono', monospace" font-size="13" fill="#6272a4" text-anchor="end">3</text>
+  <text x="746" y="181" font-family="'JetBrains Mono', monospace" font-size="15" fill="#f8f8f2">vim.g.mapleader = ' '</text>
+  <text x="718" y="203" font-family="'JetBrains Mono', monospace" font-size="13" fill="#6272a4" text-anchor="end">4</text>
+  <text x="746" y="203" font-family="'JetBrains Mono', monospace" font-size="15" fill="#f8f8f2">vim.keymap.set('n', '&lt;leader&gt;w', ':w&lt;CR&gt;')</text>
+  <text x="718" y="225" font-family="'JetBrains Mono', monospace" font-size="13" fill="#6272a4" text-anchor="end">5</text>
+  <text x="746" y="225" font-family="'JetBrains Mono', monospace" font-size="15" fill="#f8f8f2"></text>
+  <text x="718" y="247" font-family="'JetBrains Mono', monospace" font-size="13" fill="#6272a4" text-anchor="end">6</text>
+  <text x="746" y="247" font-family="'JetBrains Mono', monospace" font-size="15" fill="#f8f8f2">-- Lazy.nvim setup</text>
+  <text x="718" y="269" font-family="'JetBrains Mono', monospace" font-size="13" fill="#6272a4" text-anchor="end">7</text>
+  <text x="746" y="269" font-family="'JetBrains Mono', monospace" font-size="15" fill="#f8f8f2">require('lazy').setup({</text>
+  <text x="718" y="291" font-family="'JetBrains Mono', monospace" font-size="13" fill="#6272a4" text-anchor="end">8</text>
+  <text x="746" y="291" font-family="'JetBrains Mono', monospace" font-size="15" fill="#f8f8f2">  'tpope/vim-sensible',</text>
+  <text x="718" y="313" font-family="'JetBrains Mono', monospace" font-size="13" fill="#6272a4" text-anchor="end">9</text>
+  <text x="746" y="313" font-family="'JetBrains Mono', monospace" font-size="15" fill="#f8f8f2">})</text>
+  <rect x="700" y="378" width="440" height="22" rx="0" fill="#50fa7b" />
+  <rect x="700" y="390" width="440" height="10" fill="#50fa7b" rx="0" />
+  <rect x="700" y="390" width="440" height="10" fill="#50fa7b" rx="10" />
+  <text x="710" y="394" font-family="'JetBrains Mono', monospace" font-size="13" fill="#282a36" font-weight="bold">-- INSERT --</text>
+  <rect x="704" y="360" width="432" height="16" fill="#313244" rx="2" opacity="0.8" />
+  <text x="712" y="372" font-family="'JetBrains Mono', monospace" font-size="11" fill="#cdd6f4">init.lua [+]</text>
+  <text x="1120" y="372" font-family="'JetBrains Mono', monospace" font-size="11" fill="#cdd6f4" text-anchor="end">1,1</text>
+
+  <!-- Vim mode badge -->
+  <g>
+    <rect x="1050" y="80" width="120" height="32" rx="4" fill="#282a36" opacity="0.9" stroke="#6272a4" stroke-width="1.5" />
+    <text x="1060" y="102" font-family="'JetBrains Mono', monospace" font-size="16" fill="#bd93f9" font-weight="bold">insert</text>
+    <rect x="1146" y="90" width="8" height="16" fill="#ffb86c"><animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite" /></rect>
+  </g>
+  <!-- Vim statusline -->
+  <rect x="85" y="540" width="74.8" height="22" fill="#45475a" />
+  <text x="122.4" y="555.6666666666666" font-family="'JetBrains Mono', monospace" font-size="14" fill="#cdd6f4" text-anchor="middle">file.md</text>
+  <rect x="161.8" y="540" width="41.2" height="22" fill="#313244" />
+  <text x="182.4" y="555.6666666666666" font-family="'JetBrains Mono', monospace" font-size="14" fill="#cdd6f4" text-anchor="middle">[+]</text>
+  <rect x="205.0" y="540" width="49.6" height="22" fill="#45475a" />
+  <text x="229.8" y="555.6666666666666" font-family="'JetBrains Mono', monospace" font-size="14" fill="#cdd6f4" text-anchor="middle">12,4</text>
+  <rect x="256.6" y="540" width="58.0" height="22" fill="#313244" />
+  <text x="285.6" y="555.6666666666666" font-family="'JetBrains Mono', monospace" font-size="14" fill="#cdd6f4" text-anchor="middle">80% ☰</text>
+  <!-- Vim keystrokes -->
+  <rect x="85" y="500" width="42" height="28" rx="4" fill="#44475a" opacity="0.8" />
+  <text x="106.0" y="518.6666666666666" font-family="'JetBrains Mono', monospace" font-size="14" fill="#f8f8f2" text-anchor="middle">&lt;leader&gt;w</text>
+  <rect x="135" y="500" width="42" height="28" rx="4" fill="#44475a" opacity="0.8" />
+  <text x="156.0" y="518.6666666666666" font-family="'JetBrains Mono', monospace" font-size="14" fill="#f8f8f2" text-anchor="middle">ciw</text>
+  <rect x="185" y="500" width="42" height="28" rx="4" fill="#44475a" opacity="0.8" />
+  <text x="206.0" y="518.6666666666666" font-family="'JetBrains Mono', monospace" font-size="14" fill="#f8f8f2" text-anchor="middle">gg=G</text>
+  <rect x="235" y="500" width="42" height="28" rx="4" fill="#44475a" opacity="0.8" />
+  <text x="256.0" y="518.6666666666666" font-family="'JetBrains Mono', monospace" font-size="14" fill="#f8f8f2" text-anchor="middle">*</text>
+  <rect x="285" y="500" width="42" height="28" rx="4" fill="#44475a" opacity="0.8" />
+  <text x="306.0" y="518.6666666666666" font-family="'JetBrains Mono', monospace" font-size="14" fill="#f8f8f2" text-anchor="middle">gd</text>
+
+  <!-- vim icon (fallback) -->
+  <g transform="translate(95, 465) scale(1.4)" fill="#50fa7b" opacity="0.6">
+    <path d="M12 2L4 20h3l1.5-4h7l1.5 4h3L12 2zm-1.2 8.5h-1.6L12 5.7l2.8 4.8h-1.6l-1.2-2-1.2 2z" />
+  </g>
+
+  <!-- Series badge -->
+  <rect x="85" y="25" width="220" height="36" rx="18"
+        fill="#44475a" opacity="0.8" stroke="#50fa7b" stroke-width="1.5" />
+  <text x="97.0" y="43.0" font-family="'Inter', 'Helvetica Neue', sans-serif"
+        font-size="16" fill="#f8f8f2" font-weight="600"
+        text-anchor="start" dominant-baseline="central" letter-spacing="1.5">VIM TRICKS &amp; TIPS</text>
+
+  <!-- Status badges -->
+  <rect x="230" y="579" width="37.599999999999994" height="28" rx="4" fill="#44475a" opacity="0.7" stroke="#50fa7b" stroke-width="1" />
+  <text x="248.8" y="593.0" text-anchor="middle" dominant-baseline="central" font-family="'JetBrains Mono', monospace" font-size="12" fill="#f8f8f2">vim</text>
+  <rect x="275.6" y="579" width="59.199999999999996" height="28" rx="4" fill="#44475a" opacity="0.7" stroke="#50fa7b" stroke-width="1" />
+  <text x="305.20000000000005" y="593.0" text-anchor="middle" dominant-baseline="central" font-family="'JetBrains Mono', monospace" font-size="12" fill="#f8f8f2">neovim</text>
+  <rect x="342.8" y="579" width="102.39999999999999" height="28" rx="4" fill="#44475a" opacity="0.7" stroke="#50fa7b" stroke-width="1" />
+  <text x="394.0" y="593.0" text-anchor="middle" dominant-baseline="central" font-family="'JetBrains Mono', monospace" font-size="12" fill="#f8f8f2">productivity</text>
+  <!-- Social icons -->
+  <svg x="85" y="578.0" width="24" height="24" viewBox="0 0 24 24" fill="#94a3b8" opacity="0.8"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.757-1.333-1.757-1.09-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.418-1.305.762-1.604-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/></svg>
+  <svg x="121" y="578.0" width="24" height="24" viewBox="0 0 24 24" fill="#94a3b8" opacity="0.8"><path d="M23.643 4.937c-.835.37-1.732.62-2.675.733.962-.576 1.7-1.49 2.048-2.578-.9.534-1.897.922-2.958 1.13-.85-.904-2.06-1.47-3.4-1.47-2.572 0-4.658 2.086-4.658 4.66 0 .364.042.718.12 1.06-3.873-.195-7.304-2.05-9.602-4.868-.4.69-.63 1.49-.63 2.342 0 1.616.823 3.043 2.072 3.878-.764-.025-1.482-.234-2.11-.583v.06c0 2.257 1.605 4.14 3.737 4.568-.392.106-.803.162-1.227.162-.3 0-.593-.028-.877-.082.593 1.85 2.313 3.198 4.352 3.234-1.595 1.25-3.604 1.995-5.786 1.995-.376 0-.747-.022-1.112-.065 2.062 1.323 4.51 2.093 7.14 2.093 8.57 0 13.255-7.098 13.255-13.254 0-.2-.005-.402-.014-.602.91-.658 1.7-1.477 2.323-2.41z"/></svg>
+  <svg x="157" y="578.0" width="24" height="24" viewBox="0 0 24 24" fill="#94a3b8" opacity="0.8"><path d="M23.5 6.19a3.02 3.02 0 00-2.12-2.14C19.48 3.5 12 3.5 12 3.5s-7.48 0-9.38.55A3.02 3.02 0 00.5 6.19 32.39 32.39 0 000 12a32.39 32.39 0 00.5 5.81 3.02 3.02 0 002.12 2.14c1.9.55 9.38.55 9.38.55s7.48 0 9.38-.55a3.02 3.02 0 002.12-2.14 32.39 32.39 0 00.5-5.81 32.39 32.39 0 00-.5-5.81zM9.54 15.57V8.43L15.82 12l-6.28 3.57z"/></svg>
+
+    <!-- Credits -->
+    <text x="1170" y="580" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="18"
+            fill="#6272a4" font-weight="600" text-anchor="end">MOSAID Tutorials</text>
+    <text x="1170" y="600" font-family="'JetBrains Mono', 'Fira Code', monospace" font-size="14"
+            fill="#6272a4" text-anchor="end" opacity="0.8">mosaid.xyz</text>
+</svg>

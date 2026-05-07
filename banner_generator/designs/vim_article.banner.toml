@@ -1,0 +1,117 @@
+
+# Vim Mastery – large editor window, keystrokes, mode indicator
+theme = "dracula"
+size = "og"
+
+series = "STATIC, BUT SMARTER"
+title = "Vim Wizardry"
+title_line2 = "Beyond the Basics"
+subtitle = "Learn the keystrokes that make you fly"
+meta = "Article 7 · Editor Productivity"
+progress = "Part 7 of 10"
+tagline = "Exit Vim? No, stay forever."
+
+[components]
+show_background      = true
+show_title           = true
+show_meta_progress   = true
+show_tagline         = true
+show_credits         = true
+show_badge           = true
+show_icon            = true
+show_watermark       = true
+show_decorations     = true
+show_status_badges   = true
+show_social_icons    = true
+show_vim_editor      = true
+show_vim_keystrokes  = true
+show_vim_statusline  = true
+show_vim_mode        = true
+
+[credits]
+line1 = "MOSAID Tutorials"
+line2 = "mosaid.xyz"
+
+[icon]
+type = "vim"
+x = 95
+y = 465
+scale = 1.4
+
+[vim_editor]
+filename = "init.lua"
+mode = "INSERT"
+lines = [
+    "vim.opt.number = true",
+    "vim.opt.relativenumber = true",
+    "vim.g.mapleader = ' '",
+    "vim.keymap.set('n', '<leader>w', ':w<CR>')",
+    "",
+    "-- Lazy.nvim setup",
+    "require('lazy').setup({",
+    "  'tpope/vim-sensible',",
+    "})"
+]
+x = 700
+y = 80
+width = 440
+height = 320
+
+[vim_keystrokes]
+keys = ["<leader>w", "ciw", "gg=G", "*", "gd"]
+x = 85
+y = 500
+
+[vim_statusline]
+x = 85
+y = 540
+
+[vim_mode]
+mode = "INSERT"
+position = "top-right"
+animated = true
+
+[status_badges]
+badges = ["vim", "neovim", "productivity"]
+x = 230
+y = 579
+
+[layout]
+title_font_size      = 44
+subtitle_font_size   = 16
+title_x              = 85
+subtitle_x           = 85
+title_align          = "start"
+subtitle_align       = "start"
+title_max_width      = 660
+subtitle_max_width   = 660
+title_margin_top     = 120
+title_line_height    = 48
+subtitle_line_height = 24
+
+[badge]
+text = "VIM TRICKS & TIPS"
+x = 85
+y = 25
+width = 220
+height = 36
+font_size = 16
+align = "start"
+
+[watermark]
+opacity = 0.3
+scale = 0.9
+rotate_dur = "25s"
+
+[decorations]
+code_rain = true
+floating_geometry = true
+scanlines = true
+pulsing_bracket = true
+
+[social_icons]
+icons = ["github", "twitter", "youtube"]
+x = 85
+y = 590
+size = 24
+gap = 12

@@ -1,0 +1,17 @@
+
+name = "Arabic"
+[colors]
+bg_start = "#fdf6e3"
+bg_mid = "#f4e8c1"
+bg_end = "#fdf6e3"
+title_start = "#8b5a2b"
+title_mid = "#c17b3e"
+title_end = "#d9a56c"
+subtitle = "#5c3b1f"
+meta = "#a07e5a"
+credits = "#a07e5a"
+separator = "#d4b48c"
+badge_bg = "#d4b48c"
+badge_text = "#5c3b1f"
+badge_stroke = "#8b5a2b"
+

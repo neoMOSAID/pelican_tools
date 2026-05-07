@@ -1,0 +1,47 @@
+
+theme = "arabic"
+direction = "rtl"
+size = "og"
+series = "سلسلة المعرفة"
+title = "أساسيات اللغة العربية"
+subtitle = "قواعد النحو والصرف للمبتدئين"
+meta = "المقالة 2 · تعليم"
+progress = "الجزء 2 من 10"
+tagline = "نتعلم لنرتقي"
+
+[components]
+show_background = true
+show_title = true
+show_meta_progress = true
+show_tagline = true
+show_credits = true
+show_badge = true
+show_icon = false
+show_definition_box = true
+show_citation = true
+show_watermark = true
+show_decorations = false
+
+[credits]
+line1 = "MOSAID Tutorials"
+line2 = "https://mosaid.xyz"
+
+[definition_box]
+term = "النحو"
+definition = "علم يبحث في أحوال أواخر الكلمات إعرابًا وبناءً."
+x = 85
+y_offset = 60
+
+[citation]
+text = "﴿وَإِذَا قِيلَ لَهُمْ ءَامِنُوا۟ كَمَآ ءَامَنَ ٱلنَّاسُ قَالُوٓا۟ أَنُؤْمِنُ كَمَآ ءَامَنَ ٱلسُّفَهَآءُ ۗ أَلَآ إِنَّهُمْ هُمُ ٱلسُّفَهَآءُ وَلَـٰكِن لَّا يَعْلَمُونَ﴾ "
+author = "(البقرة 13)"
+x = 85
+y_offset = 220
+
+[layout]
+title_font_size = 44
+subtitle_font_size = 20
+title_align = "end"
+title_x = 1115   # 1200 - 85
+subtitle_align = "end"
+subtitle_x = 1115

@@ -1,0 +1,118 @@
+
+# Container Orchestration – docker-compose, metrics, terminal
+theme = "dracula"
+size = "og"
+
+series = "STATIC, BUT SMARTER"
+title = "Docker & Kubernetes"
+subtitle = "From containers to clusters"
+meta = "Article 11 · Containerization"
+progress = "Part 11 of 18"
+tagline = "Ship code faster with containers"
+
+[components]
+show_background            = true
+show_title                 = true
+show_meta_progress         = true
+show_tagline               = true
+show_credits               = true
+show_badge                 = true
+show_icon                  = true
+show_terminal              = true
+show_watermark             = true
+show_decorations           = true
+show_status_badges         = true
+show_social_icons          = true
+show_metrics               = true
+show_database_relations_tables = false   # optional, not used
+show_code_snippet          = true
+
+[credits]
+line1 = "MOSAID Tutorials"
+line2 = "mosaid.xyz"
+
+[icon]
+type = "tux"
+x = 95
+y = 465
+scale = 1.1
+
+[terminal]
+commands = [
+    "docker build -t myapp .",
+    "docker run -d -p 8080:80 myapp",
+    "kubectl apply -f deployment.yaml",
+    "kubectl get pods"
+]
+show_serving = true
+typing = true
+
+[metrics]
+entries = [
+    "Containers: 6/12",
+    "CPU: 24%",
+    "RAM: 3.8/7.2 GB"
+]
+x = 85
+y = 380
+show_bars = true
+
+[code_snippet]
+language = "yaml"
+title = "docker-compose.yml"
+code = [
+    "version: '3.8'",
+    "services:",
+    "  web:",
+    "    image: nginx:alpine",
+    "    ports:",
+    "      - '80:80'"
+]
+x = 85
+y = 460
+line_numbers = true
+
+[status_badges]
+badges = ["docker", "kubernetes", "helm"]
+x = 230
+y = 579
+
+[layout]
+title_font_size      = 44
+subtitle_font_size   = 16
+title_x              = 85
+subtitle_x           = 85
+title_align          = "start"
+subtitle_align       = "start"
+title_max_width      = 660
+subtitle_max_width   = 660
+title_margin_top     = 120
+title_line_height    = 48
+subtitle_line_height = 24
+
+[badge]
+text = "CONTAINER ORCHESTRATION"
+x = 85
+y = 25
+width = 260
+height = 36
+font_size = 16
+align = "start"
+
+[watermark]
+opacity = 0.3
+scale = 0.9
+rotate_dur = "45s"
+
+[decorations]
+code_rain = true
+floating_geometry = true
+scanlines = true
+pulsing_bracket = false
+
+[social_icons]
+icons = ["github", "twitter", "youtube"]
+x = 85
+y = 590
+size = 24
+gap = 12

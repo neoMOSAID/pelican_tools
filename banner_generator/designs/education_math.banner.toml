@@ -1,0 +1,42 @@
+
+theme = "mathematical"
+size = "og"
+series = "Math Explained"
+title = "The Pythagorean Theorem"
+subtitle = "a² + b² = c²"
+meta = "Article 4 · Geometry"
+progress = "Part 4 of 8"
+tagline = "Where numbers meet reality"
+
+[components]
+show_background = true
+show_title = true
+show_meta_progress = true
+show_tagline = true
+show_credits = true
+show_badge = true
+show_icon = false
+show_equation = true
+show_definition_box = true
+show_chart_simple = true
+
+[equation]
+latex = "a^2 + b^2 = c^2"
+x = 85
+y_offset = 40
+
+[definition_box]
+term = "Right Triangle"
+definition = "A triangle with one angle equal to 90 degrees. The side opposite the right angle is the hypotenuse."
+x = 85
+y_offset = 120
+
+[chart_simple]
+data = [
+    { label = "3-4-5", value = 25 },
+    { label = "5-12-13", value = 60 },
+    { label = "8-15-17", value = 100 }
+]
+title = "Common Pythagorean Triples"
+x = 85
+y_offset = 280

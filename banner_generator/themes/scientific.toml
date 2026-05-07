@@ -1,0 +1,12 @@
+
+name = "Scientific"
+[colors]
+bg_start = "#0f172a"
+bg_mid = "#1e293b"
+bg_end = "#0f172a"
+title_start = "#e2e8f0"
+title_mid = "#94a3b8"
+title_end = "#cbd5e1"
+equation_color = "#facc15"
+def_bg = "#1e293b"
+chart_bar = "#38bdf8"

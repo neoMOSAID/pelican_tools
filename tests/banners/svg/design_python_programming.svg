@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" preserveAspectRatio="xMidYMid meet" width="1200" height="630">
+  <defs>
+<!-- Background gradients -->
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#002b36" />
+      <stop offset="50%" stop-color="#073642" />
+      <stop offset="100%" stop-color="#002b36" />
+    </linearGradient>
+    <radialGradient id="vignette" cx="50%" cy="50%" r="70%">
+      <stop offset="50%" stop-color="#000" stop-opacity="0" />
+      <stop offset="100%" stop-color="#000" stop-opacity="0.35" />
+    </radialGradient>
+    <linearGradient id="keyLight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.06" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+    </linearGradient>
+
+    <!-- Patterns -->
+    <pattern id="dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" fill="#268bd2" opacity="0.12" />
+    </pattern>
+    <pattern id="grid" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#268bd2" stroke-width="0.5" opacity="0.06" />
+    </pattern>
+    <pattern id="scanlines" width="4" height="4" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="2" x2="4" y2="2" stroke="#ffffff" stroke-width="1" opacity="0.03" />
+    </pattern>
+
+    <!-- Title gradient & filters -->
+    <linearGradient id="titleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#268bd2" />
+      <stop offset="50%" stop-color="#2aa198" />
+      <stop offset="100%" stop-color="#859900" />
+    </linearGradient>
+    <filter id="titleShadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000000" flood-opacity="0.4" />
+    </filter>
+    <filter id="titleGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="4" result="blur" />
+      <feFlood flood-color="#94a3b8" flood-opacity="0.25" result="color" />
+      <feComposite in="color" in2="blur" operator="in" result="glow" />
+      <feMerge>
+        <feMergeNode in="glow" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <!-- Terminal glow -->
+    <filter id="termGlow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="12" result="blur" />
+      <feFlood flood-color="#94a3b8" flood-opacity="0.15" result="color" />
+      <feComposite in="color" in2="blur" operator="in" result="glow" />
+      <feMerge>
+        <feMergeNode in="glow" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <!-- Progress gradients -->
+    
+    <linearGradient id="progressGradLow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#859900" />
+      <stop offset="100%" stop-color="#93a1a1" />
+    </linearGradient>
+    <linearGradient id="progressGradMid" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#b58900" />
+      <stop offset="100%" stop-color="#93a1a1" />
+    </linearGradient>
+    <linearGradient id="progressGradHigh" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#dc322f" />
+      <stop offset="100%" stop-color="#93a1a1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Base background -->
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <rect width="1200" height="630" fill="url(#grid)" />
+  <rect width="1200" height="630" fill="url(#dots)" />
+
+  <!-- Vignette + key light -->
+  <rect width="1200" height="630" fill="url(#vignette)" pointer-events="none" />
+  <rect width="1200" height="630" fill="url(#keyLight)" pointer-events="none" />
+
+  <!-- Watermark (single, rotating vector) -->
+  <g transform="translate(460.00, 440.00) scale(0.7)" opacity="0.5">
+    <g>
+      <animateTransform attributeName="transform" type="rotate"
+        from="0 100.00 100.00" to="360 100.00 100.00"
+        dur="35s" repeatCount="indefinite" />
+      <defs>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <pattern id="stripes" patternUnits="userSpaceOnUse" width="6" height="6">
+      <rect width="6" height="3" fill="#00ccff"/>
+      <rect y="3" width="6" height="3" fill="transparent"/>
+    </pattern>
+    <clipPath id="topHalf"><rect x="0" y="0" width="200" height="85"/></clipPath>
+    <clipPath id="bottomHalf"><rect x="0" y="115" width="200" height="85"/></clipPath>
+  </defs>
+  <circle cx="100" cy="100" r="90" fill="none" stroke="#00ccff" stroke-opacity="0.6" stroke-width="2" filter="url(#glow)"/>
+  <circle cx="100" cy="100" r="90" fill="url(#stripes)" clip-path="url(#topHalf)"/>
+  <circle cx="100" cy="100" r="90" fill="#00ccff" clip-path="url(#bottomHalf)"/>
+  <line x1="40" y1="92" x2="160" y2="92" stroke="#00ccff" stroke-opacity="0.7" stroke-width="1" filter="url(#glow)"/>
+  <line x1="40" y1="108" x2="160" y2="108" stroke="#00ccff" stroke-opacity="0.7" stroke-width="1" filter="url(#glow)"/>
+  <text x="100" y="100" text-anchor="middle" dominant-baseline="middle" font-family="monospace" font-size="14" fill="#00ccff" filter="url(#glow)">MOSAID Tutorials</text>
+    </g>
+  </g>
+
+  <!-- Code rain -->
+  <g opacity="0.03" font-family="'JetBrains Mono', monospace" font-size="16" fill="#839496">
+    <text x="50" y="180">def build():</text>
+    <text x="230" y="260">&lt;html&gt;</text>
+    <text x="500" y="210">import pelican</text>
+    <text x="180" y="510">class Site</text>
+    <text x="850" y="590">git commit</text>
+    <text x="1050" y="170">pip install</text>
+    <text x="300" y="560">yaml.load</text>
+  </g>
+
+  <!-- Floating geometry -->
+  <g opacity="0.1">
+    <circle cx="100" cy="570" r="8" fill="none" stroke="#268bd2" stroke-width="2">
+      <animateTransform attributeName="transform" type="translate" values="0,0; 0,-8; 0,0" dur="6s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="1150" cy="130" r="12" fill="none" stroke="#268bd2" stroke-width="1.5">
+      <animateTransform attributeName="transform" type="translate" values="0,0; 0,10; 0,0" dur="7s" repeatCount="indefinite" />
+    </circle>
+    <polygon points="560,80 570,100 550,110" fill="none" stroke="#268bd2" stroke-width="1">
+      <animateTransform attributeName="transform" type="rotate" values="0 560 95; 10 560 95; 0 560 95" dur="10s" repeatCount="indefinite" />
+    </polygon>
+  </g>
+  <rect width="1200" height="630" fill="url(#scanlines)" pointer-events="none" />
+  <!-- Title block -->
+  <text x="85" y="80" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="44" fill="url(#titleGrad)" font-weight="800"  text-anchor="start" opacity="0.3" filter="url(#titleGlow)">Building a Modular Banner</text>
+  <text x="85" y="80" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="44" fill="url(#titleGrad)" font-weight="800"  text-anchor="start" filter="url(#titleShadow)">Building a Modular Banner</text>
+  <text x="85" y="128" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="44" fill="url(#titleGrad)" font-weight="800"  text-anchor="start" opacity="0.3" filter="url(#titleGlow)">Generator for Pelican</text>
+  <text x="85" y="128" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="44" fill="url(#titleGrad)" font-weight="800"  text-anchor="start" filter="url(#titleShadow)">Generator for Pelican</text>
+  <rect x="85" y="157" width="360" height="3" rx="1.5" fill="url(#titleGrad)" opacity="0.35" filter="url(#titleGlow)" />
+  <text x="85" y="186" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="44" fill="url(#titleGrad)" font-weight="800"  text-anchor="start" filter="url(#titleShadow)" letter-spacing="-1.5">Programming</text>
+  <text x="85" y="254" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="16" fill="#839496" font-weight="600"  text-anchor="start" >A deep dive into designing a banner generation system that treats visual assets</text>
+
+  <!-- Separator & tagline -->
+  <line x1="85" y1="527" x2="645" y2="527" stroke="#586e75" stroke-width="0.5" opacity="0.5" />
+  <text x="85" y="548" font-family="'Inter', sans-serif" font-size="16"
+        fill="#586e75" font-style="italic" text-anchor="start">
+    Write Python like a pro
+  </text>
+<text x="550" y="120" font-family="'Inter', sans-serif" font-size="14" fill="#6272a4">📂</text>
+<text x="578" y="120" font-family="'Inter', sans-serif" font-size="14" fill="#f8f8f2">Programming</text>
+<text x="550" y="146" font-family="'Inter', sans-serif" font-size="14" fill="#6272a4">🐍</text>
+<text x="578" y="146" font-family="'Inter', sans-serif" font-size="14" fill="#f8f8f2">Pelican + Jinja</text>
+<text x="550" y="172" font-family="'Inter', sans-serif" font-size="14" fill="#6272a4">📚</text>
+<text x="578" y="172" font-family="'Inter', sans-serif" font-size="14" fill="#f8f8f2">Part 9 of 15</text>
+
+    <!-- Terminal window -->
+    <g filter="url(#termGlow)">
+        <rect x="730" y="80" width="440" height="212" rx="12" fill="#002b36" fill-opacity="0.92" stroke="#073642" stroke-width="2" />
+        <rect x="730" y="80" width="440" height="32" rx="12" fill="#073642" />
+        <rect x="730" y="92" width="440" height="20" fill="#073642" />
+        <circle cx="748" cy="96" r="6" fill="#dc322f" />
+        <circle cx="768" cy="96" r="6" fill="#b58900" />
+        <circle cx="788" cy="96" r="6" fill="#859900" />
+        <text x="950" y="100" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="12" fill="#839496" text-anchor="middle" font-weight="500">Terminal — mosaid@mosaid-pc pelican-dev</text>
+
+        <line x1="750" y1="122" x2="750" y2="262" stroke="#45475a" stroke-width="1" opacity="0.3" />
+
+        <text x="748" y="132" font-family="'JetBrains Mono', monospace" font-size="14" fill="#586e75" opacity="0.6" text-anchor="end">1</text><text x="765" y="132" font-family="'JetBrains Mono', 'SF Mono', 'Fira Code', monospace" font-size="18" fill="#839496" xml:space="preserve"><tspan font-weight="bold" fill="#268bd2">$</tspan> <tspan fill="#859900" font-weight="bold">python</tspan> <tspan fill="#268bd2" >-m</tspan> <tspan fill="#839496" >venv</tspan> <tspan fill="#d33682" >.venv</tspan></text><text x="748" y="160" font-family="'JetBrains Mono', monospace" font-size="14" fill="#586e75" opacity="0.6" text-anchor="end">2</text><text x="765" y="160" font-family="'JetBrains Mono', 'SF Mono', 'Fira Code', monospace" font-size="18" fill="#839496" xml:space="preserve"><tspan font-weight="bold" fill="#268bd2">$</tspan> <tspan fill="#839496" >source</tspan> <tspan fill="#d33682" >.venv/bin/activate</tspan></text><text x="748" y="188" font-family="'JetBrains Mono', monospace" font-size="14" fill="#586e75" opacity="0.6" text-anchor="end">3</text><text x="765" y="188" font-family="'JetBrains Mono', 'SF Mono', 'Fira Code', monospace" font-size="18" fill="#839496" xml:space="preserve"><tspan font-weight="bold" fill="#268bd2">$</tspan> <tspan fill="#859900" font-weight="bold">pip</tspan> <tspan fill="#b58900" >install</tspan> <tspan fill="#839496" >black</tspan> <tspan fill="#839496" >pytest</tspan></text><text x="748" y="216" font-family="'JetBrains Mono', monospace" font-size="14" fill="#586e75" opacity="0.6" text-anchor="end">4</text><text x="765" y="216" font-family="'JetBrains Mono', 'SF Mono', 'Fira Code', monospace" font-size="18" fill="#839496" xml:space="preserve"><tspan font-weight="bold" fill="#268bd2">$</tspan> <tspan fill="#839496" >pytest</tspan> <tspan fill="#839496" >tests/</tspan></text><text x="748" y="244" font-family="'JetBrains Mono', monospace" font-size="14" fill="#586e75" opacity="0.6" text-anchor="end">5</text><text x="765" y="244" font-family="'JetBrains Mono', 'SF Mono', 'Fira Code', monospace" font-size="18" fill="#cdd6f4" xml:space="preserve"><tspan font-weight="bold" fill="#268bd2">$</tspan> <tspan fill="#839496" >black</tspan> <tspan fill="#839496" >src/</tspan> <tspan fill="#dc322f" font-weight="bold"><animate attributeName="opacity" values="1;0;1" dur="0.8s" repeatCount="indefinite" />█</tspan></text>
+        
+        <rect x="1154" y="116" width="6" height="172" rx="3" fill="#45475a" opacity="0.3" /><rect x="1155" y="121" width="4" height="172.0" rx="2" fill="#6c7086" opacity="0.5" />
+    </g>
+<rect x="85" y="286" width="600" height="180" rx="6" fill="#073642" stroke="#313244" stroke-width="1.5" />
+<rect x="85" y="286" width="600" height="28" rx="6" fill="#44475a" />
+<text x="97" y="306" font-family="'JetBrains Mono', monospace" font-size="12" fill="#cdd6f4">Decorator example</text>
+<text x="105" y="340" font-family="'JetBrains Mono', monospace" font-size="12" fill="#6272a4" text-anchor="end">1</text>
+<text x="125" y="340" font-family="'JetBrains Mono', monospace" font-size="13" xml:space="preserve">
+<tspan fill="#ff79c6" font-weight="bold">def</tspan>
+<tspan fill="#f8f8f2" > </tspan>
+<tspan fill="#50fa7b" font-weight="bold">timer</tspan>
+<tspan fill="#f8f8f2" >(</tspan>
+<tspan fill="#f8f8f2" >func</tspan>
+<tspan fill="#f8f8f2" >)</tspan>
+<tspan fill="#f8f8f2" >:</tspan>
+<tspan fill="#f8f8f2" >
+</tspan>
+</text>
+<text x="105" y="360" font-family="'JetBrains Mono', monospace" font-size="12" fill="#6272a4" text-anchor="end">2</text>
+<text x="125" y="360" font-family="'JetBrains Mono', monospace" font-size="13" xml:space="preserve">
+<tspan fill="#f8f8f2" >    </tspan>
+<tspan fill="#ff79c6" font-weight="bold">def</tspan>
+<tspan fill="#f8f8f2" > </tspan>
+<tspan fill="#50fa7b" font-weight="bold">wrapper</tspan>
+<tspan fill="#f8f8f2" >(</tspan>
+<tspan fill="#ff79c6" >*</tspan>
+<tspan fill="#f8f8f2" >args</tspan>
+<tspan fill="#f8f8f2" >,</tspan>
+<tspan fill="#f8f8f2" > </tspan>
+<tspan fill="#ff79c6" >**</tspan>
+<tspan fill="#f8f8f2" >kwargs</tspan>
+<tspan fill="#f8f8f2" >)</tspan>
+<tspan fill="#f8f8f2" >:</tspan>
+<tspan fill="#f8f8f2" >
+</tspan>
+</text>
+<text x="105" y="380" font-family="'JetBrains Mono', monospace" font-size="12" fill="#6272a4" text-anchor="end">3</text>
+<text x="125" y="380" font-family="'JetBrains Mono', monospace" font-size="13" xml:space="preserve">
+<tspan fill="#f8f8f2" >        </tspan>
+<tspan fill="#f8f8f2" >start</tspan>
+<tspan fill="#f8f8f2" > </tspan>
+<tspan fill="#ff79c6" >=</tspan>
+<tspan fill="#f8f8f2" > </tspan>
+<tspan fill="#f8f8f2" >time</tspan>
+<tspan fill="#ff79c6" >.</tspan>
+<tspan fill="#f8f8f2" >time</tspan>
+<tspan fill="#f8f8f2" >(</tspan>
+<tspan fill="#f8f8f2" >)</tspan>
+<tspan fill="#f8f8f2" >
+</tspan>
+</text>
+<text x="105" y="400" font-family="'JetBrains Mono', monospace" font-size="12" fill="#6272a4" text-anchor="end">4</text>
+<text x="125" y="400" font-family="'JetBrains Mono', monospace" font-size="13" xml:space="preserve">
+<tspan fill="#f8f8f2" >        </tspan>
+<tspan fill="#f8f8f2" >result</tspan>
+<tspan fill="#f8f8f2" > </tspan>
+<tspan fill="#ff79c6" >=</tspan>
+<tspan fill="#f8f8f2" > </tspan>
+<tspan fill="#f8f8f2" >func</tspan>
+<tspan fill="#f8f8f2" >(</tspan>
+<tspan fill="#ff79c6" >*</tspan>
+<tspan fill="#f8f8f2" >args</tspan>
+<tspan fill="#f8f8f2" >,</tspan>
+<tspan fill="#f8f8f2" > </tspan>
+<tspan fill="#ff79c6" >**</tspan>
+<tspan fill="#f8f8f2" >kwargs</tspan>
+<tspan fill="#f8f8f2" >)</tspan>
+<tspan fill="#f8f8f2" >
+</tspan>
+</text>
+<text x="105" y="420" font-family="'JetBrains Mono', monospace" font-size="12" fill="#6272a4" text-anchor="end">5</text>
+<text x="125" y="420" font-family="'JetBrains Mono', monospace" font-size="13" xml:space="preserve">
+<tspan fill="#f8f8f2" >        </tspan>
+<tspan fill="#f8f8f2" >print</tspan>
+<tspan fill="#f8f8f2" >(</tspan>
+<tspan fill="#f1fa8c" >f'</tspan>
+<tspan fill="#f1fa8c" >Time: </tspan>
+<tspan fill="#f1fa8c" >{</tspan>
+<tspan fill="#f8f8f2" >time</tspan>
+<tspan fill="#ff79c6" >.</tspan>
+<tspan fill="#f8f8f2" >time</tspan>
+<tspan fill="#f8f8f2" >(</tspan>
+<tspan fill="#f8f8f2" >)</tspan>
+<tspan fill="#ff79c6" >-</tspan>
+<tspan fill="#f8f8f2" >start</tspan>
+<tspan fill="#f1fa8c" >:</tspan>
+<tspan fill="#f1fa8c" >.2f</tspan>
+<tspan fill="#f1fa8c" >}</tspan>
+<tspan fill="#f1fa8c" >s</tspan>
+<tspan fill="#f1fa8c" >'</tspan>
+<tspan fill="#f8f8f2" >)</tspan>
+<tspan fill="#f8f8f2" >
+</tspan>
+</text>
+<text x="105" y="440" font-family="'JetBrains Mono', monospace" font-size="12" fill="#6272a4" text-anchor="end">6</text>
+<text x="125" y="440" font-family="'JetBrains Mono', monospace" font-size="13" xml:space="preserve">
+<tspan fill="#f8f8f2" >        </tspan>
+<tspan fill="#ff79c6" font-weight="bold">return</tspan>
+<tspan fill="#f8f8f2" > </tspan>
+<tspan fill="#f8f8f2" >result</tspan>
+<tspan fill="#f8f8f2" >
+</tspan>
+</text>
+<text x="105" y="460" font-family="'JetBrains Mono', monospace" font-size="12" fill="#6272a4" text-anchor="end">7</text>
+<text x="125" y="460" font-family="'JetBrains Mono', monospace" font-size="13" xml:space="preserve">
+<tspan fill="#f8f8f2" >    </tspan>
+<tspan fill="#ff79c6" font-weight="bold">return</tspan>
+<tspan fill="#f8f8f2" > </tspan>
+<tspan fill="#f8f8f2" >wrapper</tspan>
+<tspan fill="#f8f8f2" >
+</tspan>
+</text>
+
+  <!-- python icon (from file) -->
+  <g transform="translate(455, 135) scale(2.9)" fill="#268bd2" opacity="0.6">
+    <path d="M13.0164 2C10.8193 2 9.03825 3.72453 9.03825 5.85185V8.51852H15.9235V9.25926H5.97814C3.78107 9.25926 2 10.9838 2 13.1111L2 18.8889C2 21.0162 3.78107 22.7407 5.97814 22.7407H8.27322V19.4815C8.27322 17.3542 10.0543 15.6296 12.2514 15.6296H19.5956C21.4547 15.6296 22.9617 14.1704 22.9617 12.3704V5.85185C22.9617 3.72453 21.1807 2 18.9836 2H13.0164ZM12.0984 6.74074C12.8589 6.74074 13.4754 6.14378 13.4754 5.40741C13.4754 4.67103 12.8589 4.07407 12.0984 4.07407C11.3378 4.07407 10.7213 4.67103 10.7213 5.40741C10.7213 6.14378 11.3378 6.74074 12.0984 6.74074Z" />
+    <path d="M18.9834 30C21.1805 30 22.9616 28.2755 22.9616 26.1482V23.4815L16.0763 23.4815L16.0763 22.7408L26.0217 22.7408C28.2188 22.7408 29.9998 21.0162 29.9998 18.8889V13.1111C29.9998 10.9838 28.2188 9.25928 26.0217 9.25928L23.7266 9.25928V12.5185C23.7266 14.6459 21.9455 16.3704 19.7485 16.3704L12.4042 16.3704C10.5451 16.3704 9.03809 17.8296 9.03809 19.6296L9.03809 26.1482C9.03809 28.2755 10.8192 30 13.0162 30H18.9834ZM19.9015 25.2593C19.1409 25.2593 18.5244 25.8562 18.5244 26.5926C18.5244 27.329 19.1409 27.9259 19.9015 27.9259C20.662 27.9259 21.2785 27.329 21.2785 26.5926C21.2785 25.8562 20.662 25.2593 19.9015 25.2593Z" />
+  </g>
+
+  <!-- Series badge -->
+  <rect x="885" y="25" width="220" height="36" rx="18"
+        fill="#073642" opacity="0.8" stroke="#2aa198" stroke-width="1.5" />
+  <text x="897.0" y="43.0" font-family="'Inter', 'Helvetica Neue', sans-serif"
+        font-size="16" fill="#93a1a1" font-weight="600"
+        text-anchor="start" dominant-baseline="central" letter-spacing="1.5">PYTHON MASTERY</text>
+
+  <!-- Status badges -->
+  <rect x="230" y="579" width="60.39999999999999" height="22" rx="4" fill="#44475a" opacity="0.85" stroke="#50fa7b" stroke-width="1" />
+  <text x="260.2" y="590.0" text-anchor="middle" dominant-baseline="central" font-family="'JetBrains Mono', monospace" font-size="12" fill="#f8f8f2">pelican</text>
+  <rect x="302.4" y="579" width="60.39999999999999" height="22" rx="4" fill="#44475a" opacity="0.85" stroke="#50fa7b" stroke-width="1" />
+  <text x="332.59999999999997" y="590.0" text-anchor="middle" dominant-baseline="central" font-family="'JetBrains Mono', monospace" font-size="12" fill="#f8f8f2">banners</text>
+  <rect x="374.79999999999995" y="579" width="31.599999999999998" height="22" rx="4" fill="#44475a" opacity="0.85" stroke="#50fa7b" stroke-width="1" />
+  <text x="390.59999999999997" y="590.0" text-anchor="middle" dominant-baseline="central" font-family="'JetBrains Mono', monospace" font-size="12" fill="#f8f8f2">svg</text>
+  <rect x="418.4" y="579" width="53.199999999999996" height="22" rx="4" fill="#44475a" opacity="0.85" stroke="#50fa7b" stroke-width="1" />
+  <text x="445.0" y="590.0" text-anchor="middle" dominant-baseline="central" font-family="'JetBrains Mono', monospace" font-size="12" fill="#f8f8f2">python</text>
+  <rect x="483.59999999999997" y="579" width="82.0" height="22" rx="4" fill="#44475a" opacity="0.85" stroke="#50fa7b" stroke-width="1" />
+  <text x="524.5999999999999" y="590.0" text-anchor="middle" dominant-baseline="central" font-family="'JetBrains Mono', monospace" font-size="12" fill="#f8f8f2">automation</text>
+  <rect x="577.5999999999999" y="579" width="82.0" height="22" rx="4" fill="#44475a" opacity="0.85" stroke="#50fa7b" stroke-width="1" />
+  <text x="618.5999999999999" y="590.0" text-anchor="middle" dominant-baseline="central" font-family="'JetBrains Mono', monospace" font-size="12" fill="#f8f8f2">open graph</text>
+  <rect x="671.5999999999999" y="579" width="82.0" height="22" rx="4" fill="#44475a" opacity="0.85" stroke="#50fa7b" stroke-width="1" />
+  <text x="712.5999999999999" y="590.0" text-anchor="middle" dominant-baseline="central" font-family="'JetBrains Mono', monospace" font-size="12" fill="#f8f8f2">thumbnails</text>
+  <!-- Social icons -->
+  <svg x="85" y="578.0" width="24" height="24" viewBox="0 0 24 24" fill="#268bd2" opacity="0.8"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.757-1.333-1.757-1.09-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.418-1.305.762-1.604-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/></svg>
+  <svg x="121" y="578.0" width="24" height="24" viewBox="0 0 24 24" fill="#268bd2" opacity="0.8"><path d="M23.643 4.937c-.835.37-1.732.62-2.675.733.962-.576 1.7-1.49 2.048-2.578-.9.534-1.897.922-2.958 1.13-.85-.904-2.06-1.47-3.4-1.47-2.572 0-4.658 2.086-4.658 4.66 0 .364.042.718.12 1.06-3.873-.195-7.304-2.05-9.602-4.868-.4.69-.63 1.49-.63 2.342 0 1.616.823 3.043 2.072 3.878-.764-.025-1.482-.234-2.11-.583v.06c0 2.257 1.605 4.14 3.737 4.568-.392.106-.803.162-1.227.162-.3 0-.593-.028-.877-.082.593 1.85 2.313 3.198 4.352 3.234-1.595 1.25-3.604 1.995-5.786 1.995-.376 0-.747-.022-1.112-.065 2.062 1.323 4.51 2.093 7.14 2.093 8.57 0 13.255-7.098 13.255-13.254 0-.2-.005-.402-.014-.602.91-.658 1.7-1.477 2.323-2.41z"/></svg>
+  <svg x="157" y="578.0" width="24" height="24" viewBox="0 0 24 24" fill="#268bd2" opacity="0.8"><path d="M23.5 6.19a3.02 3.02 0 00-2.12-2.14C19.48 3.5 12 3.5 12 3.5s-7.48 0-9.38.55A3.02 3.02 0 00.5 6.19 32.39 32.39 0 000 12a32.39 32.39 0 00.5 5.81 3.02 3.02 0 002.12 2.14c1.9.55 9.38.55 9.38.55s7.48 0 9.38-.55a3.02 3.02 0 002.12-2.14 32.39 32.39 0 00.5-5.81 32.39 32.39 0 00-.5-5.81zM9.54 15.57V8.43L15.82 12l-6.28 3.57z"/></svg>
+
+    <!-- Credits -->
+    <text x="1170" y="580" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="18"
+            fill="#586e75" font-weight="600" text-anchor="end">MOSAID Tutorials</text>
+    <text x="1170" y="600" font-family="'JetBrains Mono', 'Fira Code', monospace" font-size="14"
+            fill="#586e75" text-anchor="end" opacity="0.8">mosaid.xyz</text>
+</svg>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" preserveAspectRatio="xMidYMid meet" width="1200" height="630">
+  <defs>
+<!-- Background gradients -->
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fdf6e3" />
+      <stop offset="50%" stop-color="#f4e8c1" />
+      <stop offset="100%" stop-color="#fdf6e3" />
+    </linearGradient>
+    <radialGradient id="vignette" cx="50%" cy="50%" r="70%">
+      <stop offset="50%" stop-color="#000" stop-opacity="0" />
+      <stop offset="100%" stop-color="#000" stop-opacity="0.35" />
+    </radialGradient>
+    <linearGradient id="keyLight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.06" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+    </linearGradient>
+
+    <!-- Patterns -->
+    <pattern id="dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" fill="#94a3b8" opacity="0.12" />
+    </pattern>
+    <pattern id="grid" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#94a3b8" stroke-width="0.5" opacity="0.06" />
+    </pattern>
+    <pattern id="scanlines" width="4" height="4" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="2" x2="4" y2="2" stroke="#ffffff" stroke-width="1" opacity="0.03" />
+    </pattern>
+
+    <!-- Title gradient & filters -->
+    <linearGradient id="titleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8b5a2b" />
+      <stop offset="50%" stop-color="#c17b3e" />
+      <stop offset="100%" stop-color="#d9a56c" />
+    </linearGradient>
+    <filter id="titleShadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000000" flood-opacity="0.4" />
+    </filter>
+    <filter id="titleGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="4" result="blur" />
+      <feFlood flood-color="#94a3b8" flood-opacity="0.25" result="color" />
+      <feComposite in="color" in2="blur" operator="in" result="glow" />
+      <feMerge>
+        <feMergeNode in="glow" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <!-- Terminal glow -->
+    <filter id="termGlow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="12" result="blur" />
+      <feFlood flood-color="#94a3b8" flood-opacity="0.15" result="color" />
+      <feComposite in="color" in2="blur" operator="in" result="glow" />
+      <feMerge>
+        <feMergeNode in="glow" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <!-- Progress gradients -->
+    
+    <linearGradient id="progressGradLow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#a6e3a1" />
+      <stop offset="100%" stop-color="#cdd6f4" />
+    </linearGradient>
+    <linearGradient id="progressGradMid" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f9e2af" />
+      <stop offset="100%" stop-color="#cdd6f4" />
+    </linearGradient>
+    <linearGradient id="progressGradHigh" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f38ba8" />
+      <stop offset="100%" stop-color="#cdd6f4" />
+    </linearGradient>
+  </defs>
+
+  <!-- Base background -->
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <rect width="1200" height="630" fill="url(#grid)" />
+  <rect width="1200" height="630" fill="url(#dots)" />
+
+  <!-- Vignette + key light -->
+  <rect width="1200" height="630" fill="url(#vignette)" pointer-events="none" />
+  <rect width="1200" height="630" fill="url(#keyLight)" pointer-events="none" />
+
+  <!-- Watermark (single, rotating vector) -->
+  <g transform="translate(740.00, 430.00) scale(0.8)" opacity="0.15">
+    <g>
+      <animateTransform attributeName="transform" type="rotate"
+        from="0 100.00 100.00" to="360 100.00 100.00"
+        dur="30s" repeatCount="indefinite" />
+      <defs>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <pattern id="stripes" patternUnits="userSpaceOnUse" width="6" height="6">
+      <rect width="6" height="3" fill="#00ccff"/>
+      <rect y="3" width="6" height="3" fill="transparent"/>
+    </pattern>
+    <clipPath id="topHalf"><rect x="0" y="0" width="200" height="85"/></clipPath>
+    <clipPath id="bottomHalf"><rect x="0" y="115" width="200" height="85"/></clipPath>
+  </defs>
+  <circle cx="100" cy="100" r="90" fill="none" stroke="#00ccff" stroke-opacity="0.6" stroke-width="2" filter="url(#glow)"/>
+  <circle cx="100" cy="100" r="90" fill="url(#stripes)" clip-path="url(#topHalf)"/>
+  <circle cx="100" cy="100" r="90" fill="#00ccff" clip-path="url(#bottomHalf)"/>
+  <line x1="40" y1="92" x2="160" y2="92" stroke="#00ccff" stroke-opacity="0.7" stroke-width="1" filter="url(#glow)"/>
+  <line x1="40" y1="108" x2="160" y2="108" stroke="#00ccff" stroke-opacity="0.7" stroke-width="1" filter="url(#glow)"/>
+  <text x="100" y="100" text-anchor="middle" dominant-baseline="middle" font-family="monospace" font-size="14" fill="#00ccff" filter="url(#glow)">MOSAID Tutorials</text>
+    </g>
+  </g>
+  <!-- Title block -->
+  <text x="85" y="30" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="44" fill="url(#titleGrad)" font-weight="800" direction="rtl" text-anchor="end" opacity="0.3" filter="url(#titleGlow)">أساسيات اللغة العربية</text>
+  <text x="85" y="30" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="44" fill="url(#titleGrad)" font-weight="800" direction="rtl" text-anchor="end" filter="url(#titleShadow)">أساسيات اللغة العربية</text>
+  <rect x="85" y="63" width="360" height="3" rx="1.5" fill="url(#titleGrad)" opacity="0.35" filter="url(#titleGlow)" />
+  <text x="85" y="102" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="20" fill="#5c3b1f" font-weight="600" direction="rtl" text-anchor="end" >قواعد النحو والصرف للمبتدئين</text>
+  <!-- Meta & progress -->
+  <text x="85" y="168" font-family="'JetBrains Mono', 'SF Mono', monospace" font-size="22" fill="#a07e5a" font-weight="600" text-anchor="start">المقالة 2 · تعليم</text>
+  <rect x="85" y="193" width="560" height="6" rx="3" fill="#313244" />
+  <rect x="85" y="193" width="112" height="6" rx="3" fill="url(#progressGradLow)" />
+  <text x="85" y="217" font-family="'JetBrains Mono', monospace" font-size="13" fill="#a07e5a">الجزء 2 من 10</text>
+
+  <!-- Separator & tagline -->
+  <line x1="85" y1="527" x2="645" y2="527" stroke="#d4b48c" stroke-width="0.5" opacity="0.5" />
+  <text x="85" y="548" font-family="'Inter', sans-serif" font-size="16"
+        fill="#a07e5a" font-style="italic" text-anchor="start">
+    نتعلم لنرتقي
+  </text>
+
+  <!-- Series badge -->
+  <rect x="85" y="85" width="220" height="36" rx="18"
+        fill="#d4b48c" opacity="0.8" stroke="#8b5a2b" stroke-width="1.5" />
+  <text x="97.0" y="103.0" font-family="'Inter', 'Helvetica Neue', sans-serif"
+        font-size="16" fill="#5c3b1f" font-weight="600"
+        text-anchor="start" dominant-baseline="central" letter-spacing="1.5">سلسلة المعرفة</text>
+
+<rect x="85" y="248" width="500" height="62" rx="8" fill="#313244" stroke="#6272a4" stroke-width="1.5" />
+<text x="100" y="268" font-family="'Inter', sans-serif" font-size="18" font-weight="bold" fill="#50fa7b">النحو</text>
+<text x="100" y="292" font-family="'Inter', sans-serif" font-size="16" fill="#cdd6f4">علم يبحث في أحوال أواخر الكلمات إعرابًا وبناءً.</text>
+<text x="85" y="485" font-family="'Georgia', serif" font-style="italic" font-size="18" fill="#a6adc8" text-anchor="start" wrap="true">﴿وَإِذَا قِيلَ لَهُمْ ءَامِنُوا۟ كَمَآ ءَامَنَ ٱلنَّاسُ قَالُوٓا۟ أَنُؤْمِنُ كَمَآ ءَامَنَ ٱلسُّفَهَآءُ ۗ أَلَآ إِنَّهُمْ هُمُ ٱلسُّفَهَآءُ وَلَـٰكِن لَّا يَعْلَمُونَ﴾ </text>
+<text x="105" y="513" font-family="'Inter', sans-serif" font-size="16" fill="#6c7086">— (البقرة 13)</text>
+
+    <!-- Credits -->
+    <text x="1170" y="580" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="18"
+            fill="#a07e5a" font-weight="600" text-anchor="end">MOSAID Tutorials</text>
+    <text x="1170" y="600" font-family="'JetBrains Mono', 'Fira Code', monospace" font-size="14"
+            fill="#a07e5a" text-anchor="end" opacity="0.8">https://mosaid.xyz</text>
+</svg>

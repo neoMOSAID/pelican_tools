@@ -1,0 +1,40 @@
+
+theme = "scientific"
+size = "og"
+series = "Physics Unlocked"
+title = "Newton's Laws of Motion"
+subtitle = "Understanding force, mass, and acceleration"
+meta = "Article 6 · Classical Mechanics"
+progress = "Part 6 of 12"
+tagline = "For every action, there is an equal and opposite reaction"
+
+[components]
+show_background = true
+show_title = true
+show_meta_progress = true
+show_tagline = true
+show_credits = true
+show_badge = true
+show_icon = false
+show_equation = true
+show_definition_box = true
+show_citation = true
+
+[equation]
+latex = "F = ma"
+x = 85
+y_offset = 50
+font_size = 36
+
+[definition_box]
+term = "Newton's Second Law"
+definition = "The acceleration of an object is directly proportional to the net force acting on it and inversely proportional to its mass."
+x = 85
+y_offset = 130
+
+[citation]
+text = "I have not been able to discover the cause of those properties of gravity from phenomena, and I frame no hypotheses."
+author = "Isaac Newton"
+source = "Philosophiæ Naturalis Principia Mathematica"
+x = 85
+y_offset = 280

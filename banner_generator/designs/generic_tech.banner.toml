@@ -1,0 +1,116 @@
+
+# Generic Tech Article – full showcase
+theme = "dracula"
+size = "og"
+
+series = "STATIC, BUT SMARTER"
+title = "Modern Dev Workflow"
+title_line2 = "Toolbox"
+subtitle = "Productivity Unleashed"
+meta = "Article 9 · Developer Experience"
+progress = "Part 9 of 12"
+tagline = "Work smarter, not harder."
+
+[credits]
+line1 = "MOSAID Tutorials"
+line2 = "mosaid.xyz"
+
+[icon]
+type = "pelican"
+
+[components]
+# Core layout (always needed)
+show_background      = true
+show_title           = true
+show_meta_progress   = true
+show_tagline         = true
+show_credits         = true
+show_badge           = true
+show_icon            = true
+
+# Decor & extras
+show_watermark       = true
+show_decorations     = true
+show_terminal        = true
+
+# Vim elements
+show_vim_mode        = true
+show_mini_vim        = true
+show_vim_keystrokes  = true
+
+# Linux / sysinfo elements
+show_sysinfo         = true
+show_package_list    = true
+show_bash_prompt     = true
+show_ascii_logo      = true
+show_status_badges   = true
+
+# Vim mode – set to INSERT for a “typing” feel
+[vim_mode]
+mode = "INSERT"
+position = "top-right"
+
+# Mini Vim window with some key mappings
+[mini_vim]
+lines = [
+  "nnoremap <C-p> :Files<CR>",
+  "set clipboard=unnamedplus",
+  "let mapleader = \" \""
+]
+y = 420
+x = 85
+
+# Vim keystrokes under the mini window
+[vim_keystrokes]
+keys = ["<C-p>", "<leader>w", "ciw", "gcc"]
+x = 85
+y = 548
+key_width = 48
+
+# Neofetch with Arch logo
+[sysinfo]
+logo = "arch"
+entries = [
+  "OS: Arch Linux",
+  "Shell: fish",
+  "Editor: Neovim",
+  "DE: Hyprland"
+]
+x = 85
+y = 330
+
+# Package cloud
+status_badges = ["v2.3.1", "build passing", "GPL-3.0"]
+
+[package_list]
+packages = ["neovim-nightly", "tmux", "starship", "ranger"]
+x = 85
+y = 578
+
+# Bash prompt line
+[bash_prompt]
+prompt = "[user@archcraft ~]$"
+x = 85
+y = 608
+
+# Large decorative ASCII logo background
+[ascii_logo]
+art = "vim"
+x = 950
+y = 100
+scale = 2.5
+opacity = 0.08
+stroke_width = 2
+
+# Terminal shows the exact workflow
+[terminal]
+commands = [
+  "sudo pacman -Syu",
+  "yay -S neovim-nightly",
+  "nvim ~/.config/nvim/init.lua",
+  "nvim -c 'PlugInstall' +qall",
+]
+show_serving = true
+
+[watermark]
+opacity = 0.35

@@ -1,0 +1,66 @@
+# banner_generator/designs/thumbnail_default.banner.toml
+
+theme = "tech"
+size = "thumbnail"
+
+# Titles are left empty → they will not appear
+title = ""
+subtitle = ""
+
+# Meta and progress will be shown (can be overridden by CLI or removed if empty)
+meta = "Article 3 · Setting Up Pelican"
+progress = "Part 3 of 20"
+
+[components]
+show_background      = true
+show_title           = true
+show_credits         = true
+show_badge           = true
+show_icon            = true
+show_watermark       = true
+show_meta_progress   = true
+
+[icon]
+type = "pelican"
+x = 420
+y = 440
+scale = 0.8
+
+[credits]
+line1 = "MOSAID Tutorials"
+line2 = "mosaid.xyz"
+font_size = 20
+x1 = 30
+y1 = 30
+align1 = "start"
+x2 = 460
+y2 = 30
+align2 = "end"
+
+[meta_progress]
+x = 50
+y = 440
+font_size = 20
+anchor = "start"
+show_progress = true
+
+[layout]
+title_font_size      = 44
+subtitle_font_size   = 16
+title_x              = 256
+title_align          = "middle"
+subtitle_align       = "middle"
+title_max_width      = 460
+subtitle_max_width   = 460
+title_margin_top     = 120
+title_line_height    = 48
+subtitle_line_height = 24
+
+[badge]
+text = "STATIC, BUT SMARTER"
+x = 25
+y = 50
+width = 220
+height = 32
+font_size = 14
+align = "start"

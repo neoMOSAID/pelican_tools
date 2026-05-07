@@ -1,0 +1,121 @@
+
+# CI/CD Pipelines – terminal, status badges, git log
+theme = "tech"
+size = "og"
+
+series = "STATIC, BUT SMARTER"
+title = "CI/CD from Scratch"
+subtitle = "GitHub Actions, GitLab CI, and Jenkins"
+meta = "Article 12 · DevOps"
+progress = "Part 12 of 14"
+tagline = "Automate everything"
+
+[components]
+show_background      = true
+show_title           = true
+show_meta_progress   = true
+show_tagline         = true
+show_credits         = true
+show_badge           = true
+show_icon            = true
+show_terminal        = true
+show_watermark       = true
+show_decorations     = true
+show_status_badges   = true
+show_social_icons    = true
+show_git             = true
+show_code_snippet    = true
+
+[credits]
+line1 = "MOSAID Tutorials"
+line2 = "mosaid.xyz"
+
+[icon]
+type = "github"
+x = 95
+y = 465
+scale = 1.2
+
+[terminal]
+commands = [
+    "git push origin main",
+    "gh workflow run ci.yml",
+    "watch -n 2 'gh run list'"
+]
+show_serving = false
+typing = true
+
+[git]
+commits = [
+    "✅ Add CI workflow",
+    "🔧 Fix linting errors",
+    "🚀 Deploy to staging",
+    "📝 Update README"
+]
+x = 85
+y = 380
+max_lines = 4
+show_branch = true
+branch_name = "ci/cd"
+
+[code_snippet]
+language = "yaml"
+title = ".github/workflows/ci.yml"
+code = [
+    "name: CI",
+    "on: [push]",
+    "jobs:",
+    "  build:",
+    "    runs-on: ubuntu-latest",
+    "    steps:",
+    "      - uses: actions/checkout@v4",
+    "      - run: make test"
+]
+x = 85
+y = 490
+line_numbers = true
+
+[status_badges]
+badges = ["CI passing", "code coverage 92%", "deployed"]
+x = 230
+y = 579
+
+[layout]
+title_font_size      = 44
+subtitle_font_size   = 16
+title_x              = 85
+subtitle_x           = 85
+title_align          = "start"
+subtitle_align       = "start"
+title_max_width      = 660
+subtitle_max_width   = 660
+title_margin_top     = 120
+title_line_height    = 48
+subtitle_line_height = 24
+
+[badge]
+text = "CI/CD PIPELINES"
+x = 85
+y = 25
+width = 220
+height = 36
+font_size = 16
+align = "start"
+
+[watermark]
+opacity = 0.5
+scale = 0.8
+rotate_dur = "30s"
+
+[decorations]
+code_rain = true
+floating_geometry = true
+scanlines = true
+pulsing_bracket = true
+
+[social_icons]
+icons = ["github", "twitter", "youtube"]
+x = 85
+y = 590
+size = 24
+gap = 12
