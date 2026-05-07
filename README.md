@@ -2,10 +2,13 @@
 
 ![Pelican Tools Banner](tests/banner.svg)
 
-**pelican_tools** is a full‑featured toolkit for managing a [Pelican](https://getpelican.com/) static site.
-It provides **interactive workflows** for creating and editing articles and generates beautiful, technogeek
-**Open Graph banners** and **square thumbnails** — all powered by a flexible SVG‑based rendering engine
-with dozens of customisable components.
+**pelican_tools** provides a flexible, SVG‑based **banner and thumbnail generator**
+for [Pelican](https://getpelican.com/) static sites.
+Create beautiful, technogeek Open Graph images and square thumbnails
+from simple TOML configuration files.
+
+📝 **Read the blog post:**
+[Building a Modular Banner Generator for Pelican](https://mosaid.xyz/articles/building-a-modular-banner-generator-for-pelican.html)
 
 ---
 
@@ -15,10 +18,8 @@ with dozens of customisable components.
 - [Installation](#installation)
 - [Quick start](#quick-start)
 - [CLI commands](#cli-commands)
-  - [`article` – interactive creation](#article--interactive-creation)
-  - [`edit` – update a published article](#edit--update-a-published-article)
-  - [`banner` – generate a banner from the command line](#banner--generate-a-banner-from-the-command-line)
-  - [`thumbnail` – generate a thumbnail from the command line](#thumbnail--generate-a-thumbnail-from-the-command-line)
+  - [`banner` – generate a banner](#banner--generate-a-banner)
+  - [`thumbnail` – generate a thumbnail](#thumbnail--generate-a-thumbnail)
 - [Configuration & customisation](#configuration--customisation)
 - [Project structure](#project-structure)
 - [Dependencies](#dependencies)
@@ -28,24 +29,19 @@ with dozens of customisable components.
 
 ## Features
 
-- **Interactive article creation** – guided workflow that sets up title, summary, tags,
-  working directories, slug generation, and final Markdown export.
-- **Article editing** – edit metadata, body, move articles between categories, and
-  regenerate banners/thumbnails without leaving the terminal.
-- **Banner generator** – a powerful SVG composer with **35+ components**:
+- **35+ visual components** – mix and match to build stunning banners:
   - Terminal windows with typing animations
-  - Code snippets, Equations, Network diagrams
-  - Git log, Kanban board, Database tables
+  - Code snippets, equations, network diagrams
+  - Git log, Kanban board, database tables
   - Vim editor mockups, ASCII art, system info
-  - Quote blocks, definition boxes, charts, badges, social icons, and more.
-- **Design & theme system** – 14 built‑in themes (Dracula, Nord, Gruvbox, Catppuccin, …)
-  and 14 layout designs (tech, vim, docker, python, latex, …). Everything is defined
-  in simple TOML files – easy to extend.
-- **Thumbnail generation** – 512×512 square images for article previews, with the same
-  rich component set.
-- **Batch‑friendly CLI** – generate banners and thumbnails directly from configuration
-  files, ideal for scripting and CI/CD.
-- **Dry‑run & verbose modes** – safe exploration and debugging.
+  - Quote blocks, definition boxes, charts, badges, social icons, and more
+- **14 themes** – Dracula, Nord, Gruvbox, Catppuccin, Solarized, and others
+- **14 design presets** – ready‑to‑use layouts for tech, vim, docker, python, latex, …
+- **Square thumbnails** – 512×512 images for article previews, using the same rich components
+- **Batch‑friendly CLI** – generate banners and thumbnails from the command line,
+  ideal for scripting and CI/CD
+- **TOML‑native** – all configuration is clean, human‑readable TOML (no JSON, no YAML)
+- **Zero external Python dependencies** – uses only the standard library (`tomllib`)
 
 ---
 
@@ -58,12 +54,10 @@ with dozens of customisable components.
    cd pelican_tools
    ```
 
-2. **Install Python requirements** (only standard library + `tomllib` is built‑in, no
-   external packages needed).
+2. **Python version** – requires Python 3.11+ (for built‑in `tomllib`).
+   No `pip install` is needed.
 
-   *No special installation is required; the tools run directly with Python 3.11+.*
-
-3. **Install ImageMagick or GraphicsMagick** (optional, for raster output)
+3. **Install ImageMagick or GraphicsMagick** (optional, for PNG/JPG output)
 
    ```bash
    # Debian/Ubuntu
@@ -73,81 +67,41 @@ with dozens of customisable components.
    brew install imagemagick
    ```
 
-   The toolkit automatically detects `magick` (ImageMagick v7) or `convert` (older
-   versions). Without it, only SVG output is available.
+   If ImageMagick is not available, the toolkit can still produce high‑quality SVG files.
 
 4. **Set up your environment**
 
-   The `article` and `edit` commands expect certain paths (Pelican project root,
-   articles directory, etc.). Edit `article_creator/config.py` or set the following
-   environment variables:
-
-   | Variable              | Default                              | Description                          |
-   |-----------------------|--------------------------------------|--------------------------------------|
-   | `ARTICLES_WORK_DIR`   | `~/articles`                         | Base directory for article working dirs |
-   | `EDITOR`              | `vim`                                | Editor used for metadata files      |
-
-   You may also adjust the hard‑coded paths inside `Config.__init__()` to match your
-   Pelican setup.
+   Edit `banner_generator/config.py` to set default paths if needed, or rely on the
+   default locations inside the project. Usually no changes are necessary.
 
 ---
 
 ## Quick start
 
-The most common tasks are creating a new article and later editing it.
+Generate a banner from a design preset:
 
 ```bash
-# Start an interactive article creation session
-python cli.py article
-
-# Edit an existing article (choose category, then article)
-python cli.py edit
+python cli.py banner --design vim_article --png
 ```
 
-Both commands walk you through all steps with prompts. **Banner and thumbnail images**
-are generated automatically during the process, but you can also regenerate them
-later with the `edit` workflow.
-
-If you only need a banner or thumbnail from a design preset:
+Generate a thumbnail with custom text:
 
 ```bash
-# Generate a banner from the "vim_article" design
-python cli.py banner --design vim_article --png
+python cli.py thumbnail --design thumbnail_default \
+  --title "My Post" --subtitle "A tutorial"
+```
 
-# Generate a thumbnail using article metadata
-python cli.py thumbnail --design thumbnail_default --title "My Post" --subtitle "A tutorial"
+Use your own complete TOML configuration:
+
+```bash
+python cli.py banner --file /path/to/banner.toml --out-dir ./output --svg
 ```
 
 ---
 
 ## CLI commands
 
-### `article` – interactive creation
-
-```
-python cli.py article [--dry-run] [--verbose|-v]
-```
-
-- Pick or create a working directory.
-- Choose the target Pelican category / subcategory.
-- Edit metadata files (title, summary, tags, raw body).
-- Auto‑generates a slug and checks for duplicates.
-- Guides you through banner and thumbnail creation with live SVG previews.
-- Writes the final `.md` article, then offers to copy files, build, and deploy.
-
-### `edit` – update a published article
-
-```
-python cli.py edit [--dry-run] [--verbose|-v]
-```
-
-- Lists articles in a chosen category (sorted by date).
-- Edit markdown content (opens in `$EDITOR`).
-- Change metadata (title, summary, tags, ThumbTitle, BannerTitle).
-- Regenerate banner and thumbnail images with the same interactive loop.
-- Move the article to a different category / subcategory.
-
-### `banner` – generate a banner from the command line
+### `banner` – generate a banner
 
 ```
 python cli.py banner (--design DESIGN | --file FILE) [--out-dir DIR] [--svg|--png]
@@ -157,7 +111,7 @@ python cli.py banner (--design DESIGN | --file FILE) [--out-dir DIR] [--svg|--pn
 
 - `--design <name>` – use a built‑in design preset (e.g. `vim_article`, `linux_homelab`).
 - `--file <path>` – point to a complete `.toml` configuration file (the same format
-  saved by the interactive workflow as `banner.toml`).
+  used by the generator).
 
 **Options**
 
@@ -165,17 +119,15 @@ python cli.py banner (--design DESIGN | --file FILE) [--out-dir DIR] [--svg|--pn
 - `--svg` – save only SVG (default when no flag is given).
 - `--png` – also rasterise to PNG (requires ImageMagick).
 
-### `thumbnail` – generate a thumbnail from the command line
+### `thumbnail` – generate a thumbnail
 
 ```
-python cli.py thumbnail [--design DESIGN] [--work-dir DIR] [--title TITLE]
+python cli.py thumbnail [--design DESIGN] [--title TITLE]
                          [--subtitle SUBTITLE] [--meta META] [--category CAT]
                          [--no-tagline] [--out-dir DIR]
 ```
 
 - Default design is `thumbnail_default`.
-- If a working directory is given (`--work-dir`), metadata is read from `title.txt`,
-  `summary.txt`, etc.
 - Command‑line overrides (`--title`, `--subtitle`, …) take precedence.
 - Always produces a static square image (512×512), suitable for Pelican’s `THUMBNAIL`
   metadata field.
@@ -184,22 +136,19 @@ python cli.py thumbnail [--design DESIGN] [--work-dir DIR] [--title TITLE]
 
 ## Configuration & customisation
 
-The banner engine is driven by **three layers of configuration**:
+The banner engine is driven by **three layers**:
 
-1. **Themes** (`banner_generator/themes/*.toml`) – define colour palettes and global
-   layout defaults.
+1. **Themes** (`banner_generator/themes/*.toml`) – colour palettes and global layout
+   defaults.
 2. **Designs** (`banner_generator/designs/*.banner.toml`) – presets that enable specific
    components (terminal, code snippet, etc.) and set their parameters.
-3. **Per‑article configs** – `banner.toml` and `thumbnail.toml` written by the
-   interactive workflows; you can edit them by hand.
+3. **Per‑use configs** – any TOML file you write or generate.
 
-All configs are in TOML format. The interactive tools generate commented configs
-that explain every key.
+All configs are TOML. The simplest way to get started is to copy an existing design
+and tweak the values.
 
-For advanced use, you can create your own theme or design by copying an existing file
-and tweaking the values. The component library (`banner_generator/components/`)
-is modular, so new visual elements can be added by implementing a simple `Component`
-class.
+The component library (`banner_generator/components/`) is modular – new visual
+elements can be added by implementing a simple `Component` class.
 
 ---
 
@@ -207,16 +156,6 @@ class.
 
 ```
 pelican_tools/
-├── article_creator/          # Interactive article / edit workflows
-│   ├── workflow.py           # ArticleWorkflow (creation)
-│   ├── edit_workflow.py      # EditWorkflow (post‑publish editing)
-│   ├── banner_integration.py # Bridge to banner generator
-│   ├── config.py             # Global paths & settings
-│   ├── prompters.py          # User input helpers
-│   ├── slug_utils.py         # Title ↔ slug conversion
-│   ├── site.py               # Pelican site manager (copy, build, deploy)
-│   ├── working_dir.py        # Per‑article working directory manager
-│   └── meta_suggestions.py   # Auto‑suggest banner content from article body
 ├── banner_generator/         # SVG rendering engine
 │   ├── core/                 # Context, canvas, factory, renderer
 │   ├── components/           # All 35+ visual components
@@ -229,12 +168,16 @@ pelican_tools/
 └── README.md
 ```
 
+> **Note:** The interactive article creation tools (`article_creator/`) are kept in a private
+> repository and are not included here. This public project focuses exclusively on
+> banner and thumbnail generation.
+
 ---
 
 ## Dependencies
 
 - **Python 3.11+** (uses `tomllib` from the standard library)
-- **ImageMagick** or **GraphicsMagick** (for PNG/JPG output – optional)
+- **ImageMagick** or **GraphicsMagick** (optional, for PNG/JPG output)
 
 All Python dependencies are part of the standard library. No `pip install` is required.
 
@@ -242,8 +185,8 @@ All Python dependencies are part of the standard library. No `pip install` is re
 
 ## License
 
-This project is licensed under the MIT License. .
+This project is licensed under the MIT License.
 
 ---
 
-**Happy writing, and may your Pelican articles always look stunning!**
+**Happy generating – may your Pelican banners always stand out!**
