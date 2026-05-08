@@ -13,6 +13,35 @@ from article_creator.config import Config
 from banner_generator.config import BannerConfig
 from article_creator.edit_workflow import EditWorkflow
 
+
+def find_design(designs_dir: Path, name: str) -> Path:
+    """Resolve a design name (possibly nested) to a .banner.toml file.
+    
+    If name contains a '/', treat it as a relative path from designs_dir.
+    Otherwise, search recursively for a file named `{name}.banner.toml`.
+    """
+    # Direct path (supports subdirectories like 'books/fantasy/fantasy_book_cover')
+    direct = designs_dir / f"{name}.banner.toml"
+    if direct.exists():
+        return direct
+
+    # Search for a file with exactly this name (plus the double extension)
+    target_file = f"{name}.banner.toml"
+    candidates = []
+    for p in designs_dir.rglob("*.banner.toml"):
+        if p.name == target_file:
+            candidates.append(p)
+
+    if not candidates:
+        raise FileNotFoundError(f"Design not found: {name}")
+    if len(candidates) > 1:
+        rel_paths = [str(c.relative_to(designs_dir)) for c in candidates]
+        raise RuntimeError(
+            f"Multiple designs match '{name}'. Use a more specific name (with subdirectory):\n"
+            + "\n".join(f"  {p}" for p in rel_paths)
+        )
+    return candidates[0]
+
 # ----------------------------------------------------------------------
 def cmd_article(args):
     cfg = Config()
@@ -44,9 +73,10 @@ def cmd_banner(args):
         ctx = BannerContext.from_toml(config_path, themes_dir=bcfg.THEMES_DIR)
     else:
         # ── design preset (existing behaviour) ──
-        design_path = bcfg.DESIGNS_DIR / f"{args.design}.banner.toml"
-        if not design_path.exists():
-            sys.exit(f"❌ Design not found: {design_path}")
+        try:
+            design_path = find_design(bcfg.DESIGNS_DIR, args.design)
+        except (FileNotFoundError, RuntimeError) as e:
+            sys.exit(f"❌ {e}")
         ctx = BannerContext.from_toml(design_path, themes_dir=bcfg.THEMES_DIR)
 
     # ── render SVG ──
@@ -82,9 +112,11 @@ def cmd_thumbnail(args):
     from article_creator.config import Config as ArticleConfig
 
     bcfg = BannerConfig()
-    design_path = bcfg.DESIGNS_DIR / f"{args.design}.banner.toml"
-    if not design_path.exists():
-        sys.exit(f"❌ Design not found: {design_path}")
+
+    try:
+        design_path = find_design(bcfg.DESIGNS_DIR, args.design)
+    except (FileNotFoundError, RuntimeError) as e:
+        sys.exit(f"❌ {e}")
 
     # Build config dict from the preset
     cfg = tomllib.loads(design_path.read_text(encoding="utf-8"))
@@ -159,7 +191,7 @@ def main():
     # ---- banner subcommand ----
     ban = sub.add_parser("banner", help="Generate a banner from a design preset")
     group = ban.add_mutually_exclusive_group(required=True)
-    group.add_argument('--design', help='Design name (e.g. vim_article)')
+    group.add_argument('--design', help='Design name (e.g., vim_article or books/fantasy/fantasy_book_cover)')
     group.add_argument('--file', type=Path, help='Path to a complete banner .toml configuration')
     ban.add_argument("--out-dir", default=None, help="Output directory (default: banner_generator/output)")
     ban.add_argument("--svg", action="store_true", help="Output SVG only")
