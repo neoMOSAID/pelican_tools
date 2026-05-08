@@ -1,0 +1,68 @@
+
+name = "Book Cover"
+
+[colors]
+# Dark, elegant background – like a leather‑bound book
+bg_start   = "#1a1a24"
+bg_mid     = "#2a2438"
+bg_end     = "#1a1a24"
+
+# Title gradient – warm gold / copper
+title_start = "#e6c27a"
+title_mid   = "#d4af37"
+title_end   = "#b8860b"
+
+# Subtitle and metadata – softer gold
+subtitle    = "#c9ab73"
+meta        = "#9c7e5c"
+
+# Author / credits
+credits     = "#b89a6e"
+
+# Progress bar (e.g., page count)
+progress_bar_bg        = "#3a2e3e"
+progress_bar_fill_start = "#c9ab73"
+progress_bar_fill_mid   = "#d4af37"
+progress_bar_fill_end   = "#e6c27a"
+progress_shimmer        = "#f4d03f"
+
+# Separator line
+separator   = "#4a3b4a"
+
+# Badge (series info)
+badge_bg      = "#0f0e17"
+badge_stroke  = "#d4af37"
+badge_text    = "#e6c27a"
+
+# Framing elements (geometric_shapes component)
+vertical_bar   = "#c9ab73"
+horizontal_bar = "#d4af37"
+circle_stroke  = "#d4af37"
+rect_stroke    = "#b8860b"
+
+# Decorative bracket or subtle glow
+decorative_bracket = "#e6c27a"
+dots_color         = "#d4af37"
+
+[layout]
+# Large, readable title with serif font
+title_font_size      = 52
+title_line_height    = 64
+title_max_width      = 480
+title_margin_top     = 140
+
+subtitle_font_size   = 20
+subtitle_line_height = 28
+subtitle_max_width   = 480
+
+title_x    = 60
+title_align = "start"
+subtitle_x = 60
+subtitle_align = "start"
+
+# Custom font families (you can replace with any web‑safe or Google Font)
+# If your renderer supports, add a CSS @import in the SVG header.
+# For now we rely on generic serif.
+title_font_family    = "'Playfair Display', 'Times New Roman', serif"
+subtitle_font_family = "'Lato', 'Helvetica Neue', sans-serif"
+

@@ -2,87 +2,62 @@
 # banner_generator/core/renderer.py
 
 from __future__ import annotations
-from dataclasses import dataclass
 from typing import List, Optional
 
 from .canvas import SvgDocument, join_fragments
-from .factory import load_component
+from .factory import load_component, get_all_component_ids
 from .context import BannerContext
 
 
-DEFAULT_Z_ORDER = [
-    "background",
-    "watermark",
-    "decorations",
-    "title",
-    "meta_progress",
-    "tagline",
-    "article_metadata",
-    "vim_editor",
-    "terminal",
-    "code_snippet",           # <-- add
-    "latex_source",
-    "network_diagram",        # add
-    "database_relations_tables", # add
-    "kanban",                 # add
-    "sysinfo",
-    "git",                    # add
-    "metrics",                # add
-    "vim_mode",
-    "vim_statusline",
-    "mini_vim",
-    "vim_keystrokes",
-    "bash_prompt",
-    "ascii_logo",
-    "package_list",
-    "icon",
-    "badge",
-    "definition_box",
-    "citation",
-    "chart_simple",
-    "equation",
-    "status_badges",
-    "social_icons",
-    "credits",
-    "quote",                  # add
-]
-
-
-@dataclass
 class BannerRenderer:
-    context: BannerContext
+    """Composes an SVG banner from enabled components, stacked by z_index."""
+
+    def __init__(self, context: BannerContext):
+        self.context = context
 
     def _enabled(self, component_id: str) -> bool:
+        """Return True if the component is explicitly enabled via show_<id>."""
         comp_cfg = self.context.config.get("components") or {}
-        if not isinstance(comp_cfg, dict):
-            return False
         key = f"show_{component_id}"
         return bool(comp_cfg.get(key, False))
 
     def compose(self, z_order: Optional[List[str]] = None) -> str:
-        z = z_order or list(DEFAULT_Z_ORDER)
-        defs_list: List[str] = []
-        body_list: List[str] = []
+        # 1) Determine the final list of component IDs to render (in order)
+        if z_order is None:
+            # Try to get a custom order from the banner config
+            z_order = self.context.config.get("z_order")
 
-        # First pass: collect all defs (no y offset needed)
-        for cid in z:
+        if z_order is None:
+            # Default: take all enabled components and sort by their z_index
+            all_ids = get_all_component_ids()
+            enabled_ids = [cid for cid in all_ids if self._enabled(cid)]
+
+            def _z(cid):
+                Comp = load_component(cid)
+                return getattr(Comp, 'z_index', 100)
+            enabled_ids.sort(key=_z)
+            z_order = enabled_ids
+
+        # 2) First pass – collect defs (no y‑offset needed)
+        defs_list: List[str] = []
+        for cid in z_order:
             if not self._enabled(cid):
                 continue
-            ComponentClass = load_component(cid)
-            comp = ComponentClass(self.context, y_offset=0)
+            Comp = load_component(cid)
+            comp = Comp(self.context, y_offset=0)
             defs_list.append(comp.defs())
 
-        # Second pass: render with vertical cursor
+        # 3) Second pass – render with vertical cursor
         cursor_y = 0
-        for cid in z:
+        body_list: List[str] = []
+        for cid in z_order:
             if not self._enabled(cid):
                 continue
-            ComponentClass = load_component(cid)
-            # pass current cursor as y_offset
-            comp = ComponentClass(self.context, y_offset=cursor_y)
-            svg_part = comp.render()
-            if svg_part.strip():
-                body_list.append(svg_part)
+            Comp = load_component(cid)
+            comp = Comp(self.context, y_offset=cursor_y)
+            part = comp.render()
+            if part.strip():
+                body_list.append(part)
             cursor_y += comp.used_height
 
         doc = SvgDocument(
@@ -92,4 +67,4 @@ class BannerRenderer:
             body=join_fragments(body_list),
         )
         return doc.to_svg()
-
+        

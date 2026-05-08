@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" preserveAspectRatio="xMidYMid meet" width="600" height="900">
+  <defs>
+<!-- Background gradients -->
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a1a24" />
+      <stop offset="50%" stop-color="#2a2438" />
+      <stop offset="100%" stop-color="#1a1a24" />
+    </linearGradient>
+    <radialGradient id="vignette" cx="50%" cy="50%" r="70%">
+      <stop offset="50%" stop-color="#000" stop-opacity="0" />
+      <stop offset="100%" stop-color="#000" stop-opacity="0.35" />
+    </radialGradient>
+    <linearGradient id="keyLight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.06" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+    </linearGradient>
+
+    <!-- Patterns -->
+    <pattern id="dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" fill="#d4af37" opacity="0.12" />
+    </pattern>
+    <pattern id="grid" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#d4af37" stroke-width="0.5" opacity="0.06" />
+    </pattern>
+    <pattern id="scanlines" width="4" height="4" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="2" x2="4" y2="2" stroke="#ffffff" stroke-width="1" opacity="0.03" />
+    </pattern>
+
+    <!-- Title gradient & filters -->
+    <linearGradient id="titleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#e6c27a" />
+      <stop offset="50%" stop-color="#d4af37" />
+      <stop offset="100%" stop-color="#b8860b" />
+    </linearGradient>
+    <filter id="titleShadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000000" flood-opacity="0.4" />
+    </filter>
+    <filter id="titleGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="4" result="blur" />
+      <feFlood flood-color="#94a3b8" flood-opacity="0.25" result="color" />
+      <feComposite in="color" in2="blur" operator="in" result="glow" />
+      <feMerge>
+        <feMergeNode in="glow" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <!-- Terminal glow -->
+    <filter id="termGlow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="12" result="blur" />
+      <feFlood flood-color="#94a3b8" flood-opacity="0.15" result="color" />
+      <feComposite in="color" in2="blur" operator="in" result="glow" />
+      <feMerge>
+        <feMergeNode in="glow" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <!-- Progress gradients -->
+    
+    <linearGradient id="progressGradLow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#c9ab73" />
+      <stop offset="100%" stop-color="#f4d03f" />
+    </linearGradient>
+    <linearGradient id="progressGradMid" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#d4af37" />
+      <stop offset="100%" stop-color="#f4d03f" />
+    </linearGradient>
+    <linearGradient id="progressGradHigh" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#e6c27a" />
+      <stop offset="100%" stop-color="#f4d03f" />
+    </linearGradient>
+  </defs>
+
+  <!-- Base background -->
+  <rect width="600" height="900" fill="url(#bg)" />
+  <rect width="600" height="900" fill="url(#grid)" />
+  <rect width="600" height="900" fill="url(#dots)" />
+
+  <!-- Vignette + key light -->
+  <rect width="600" height="900" fill="url(#vignette)" pointer-events="none" />
+  <rect width="600" height="900" fill="url(#keyLight)" pointer-events="none" />
+
+  <!-- Series badge -->
+  <rect x="60" y="68" width="480" height="36" rx="18"
+        fill="#0f0e17" opacity="0.8" stroke="#d4af37" stroke-width="1.5" />
+  <text x="72.0" y="86.0" font-family="'Inter', 'Helvetica Neue', sans-serif"
+        font-size="12" fill="#e6c27a" font-weight="600"
+        text-anchor="start" dominant-baseline="central" letter-spacing="1.5">THE COVENANT OF LIGHT · BOOK I</text>
+
+
+    <!-- Credits -->
+    <text x="1170" y="580" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="18"
+            fill="#b89a6e" font-weight="600" text-anchor="end">E. L. MORNINGSTAR</text>
+    <text x="1170" y="600" font-family="'JetBrains Mono', 'Fira Code', monospace" font-size="14"
+            fill="#b89a6e" text-anchor="end" opacity="0.8">MOSAID Books</text>
+    
+
+  <!-- Floating geometry -->
+  <g opacity="0.1">
+    <circle cx="100" cy="570" r="8" fill="none" stroke="#94a3b8" stroke-width="2">
+      <animateTransform attributeName="transform" type="translate" values="0,0; 0,-8; 0,0" dur="6s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="1150" cy="130" r="12" fill="none" stroke="#94a3b8" stroke-width="1.5">
+      <animateTransform attributeName="transform" type="translate" values="0,0; 0,10; 0,0" dur="7s" repeatCount="indefinite" />
+    </circle>
+    <polygon points="560,80 570,100 550,110" fill="none" stroke="#d4af37" stroke-width="1">
+      <animateTransform attributeName="transform" type="rotate" values="0 560 95; 10 560 95; 0 560 95" dur="10s" repeatCount="indefinite" />
+    </polygon>
+  </g>
+
+  <!-- Decorative bracket -->
+  <g opacity="0.08" fill="none" stroke="#e6c27a" stroke-width="4" font-family="'JetBrains Mono', monospace" font-size="90" font-weight="bold">
+    <text x="980" y="550" fill="#e6c27a" stroke="none">&#123; &#125;
+      <animate attributeName="opacity" values="0.6; 1; 0.6" dur="6s" repeatCount="indefinite" />
+    </text>
+  </g>
+<rect x="20" y="80" width="4" height="740" fill="#d4af37" opacity="0.4" />
+<rect x="576" y="80" width="4" height="740" fill="#d4af37" opacity="0.4" />
+<rect x="20" y="60" width="560" height="2" fill="#e6c27a" opacity="0.6" />
+<rect x="20" y="820" width="560" height="2" fill="#e6c27a" opacity="0.6" />
+<circle cx="300" cy="280" r="180" fill="none" stroke="#d4af37" stroke-width="1" opacity="0.15" />
+<circle cx="300" cy="280" r="120" fill="none" stroke="#e6c27a" stroke-width="0.8" opacity="0.2" />
+<rect x="40" y="80" width="520" height="740" fill="none" stroke="#b8860b" stroke-width="1.5" opacity="0.3" />
+
+  <!-- Separator & tagline -->
+  <line x1="85" y1="527" x2="645" y2="527" stroke="#4a3b4a" stroke-width="0.5" opacity="0.5" />
+  <text x="85" y="548" font-family="'Inter', sans-serif" font-size="16"
+        fill="#9c7e5c" font-style="italic" text-anchor="start">
+    Build your static site like a professional engineering system
+  </text>
+  <!-- Title block -->
+  <rect x="60" y="119" width="360" height="3" rx="1.5" fill="url(#titleGrad)" opacity="0.35" filter="url(#titleGlow)" />
+</svg>

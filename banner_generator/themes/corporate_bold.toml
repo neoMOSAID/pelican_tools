@@ -1,0 +1,24 @@
+
+name = "Corporate Bold"
+
+[colors]
+bg_start = "#ffffff"
+bg_mid   = "#f8f9fa"
+bg_end   = "#ffffff"
+
+title_start = "#2c3e50"
+title_mid   = "#2c3e50"
+title_end   = "#2c3e50"
+subtitle    = "#c0392b"
+tagline     = "#c0392b"
+meta        = "#2c3e50"
+
+badge_bg     = "#ecf0f1"
+badge_stroke = "#c0392b"
+badge_text   = "#c0392b"
+
+credits_color = "#7f8c8d"
+
+vertical_bar_color   = "#c0392b"
+horizontal_bar_color = "#95a5a6"
+

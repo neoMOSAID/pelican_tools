@@ -1,0 +1,71 @@
+
+theme = "book_cover"
+size = "custom"
+
+[canvas]
+width  = 600
+height = 900
+
+title = "Clean Code Architectures"
+subtitle = "Principles, Patterns, and Practices for the Modern Developer"
+meta = "428 pages · Software Engineering"
+tagline = "Write code that lasts"
+
+[components]
+show_background        = true
+show_title             = true
+show_meta_progress     = true
+show_tagline           = true
+show_credits           = true
+show_badge             = true
+show_geometric_shapes  = true
+show_decorations       = false
+show_watermark         = false
+show_social_icons      = false
+show_terminal          = false
+show_status_badges     = false
+
+[credits]
+line1 = "DR. M. H. NOUREDDINE"
+line2 = "MOSAID Press"
+
+[badge]
+text = "SERIES: SOFTWARE CRAFTMANSHIP"
+x = 60
+y = 68
+width  = 480
+height = 36
+font_size = 12
+align = "start"
+
+[meta_progress]
+x = 60
+y_offset = 20
+font_size = 12
+show_progress = true
+progress_bar_width = 480
+
+[geometric_shapes]
+# Tech‑inspired diagonal grid and digital feel
+vertical_bars = [
+    { x = 60,  y = 120, width = 2, height = 680, color = "#2aa198", opacity = 0.4 },
+    { x = 540, y = 120, width = 2, height = 680, color = "#2aa198", opacity = 0.4 }
+]
+horizontal_bars = [
+    { x = 60, y = 100, width = 480, height = 2, color = "#268bd2", opacity = 0.5 },
+    { x = 60, y = 800, width = 480, height = 2, color = "#268bd2", opacity = 0.5 }
+]
+# Central hexagon effect (via circles + polygon approximation)
+circles = [
+    { cx = 300, cy = 380, r = 160, fill = "none", stroke = "#268bd2", stroke_width = 1.5, opacity = 0.2 }
+]
+rectangles = [
+    { x = 100, y = 220, width = 400, height = 320, fill = "none", stroke = "#2aa198", stroke_width = 1, opacity = 0.2 }
+]
+
+[layout]
+title_margin_top = 140
+title_font_size  = 44
+title_max_width  = 480
+subtitle_y = 380
+

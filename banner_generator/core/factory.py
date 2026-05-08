@@ -1,48 +1,84 @@
+
+# banner_generator/core/factory.py
+"""Discover components automatically from the components package.
+No more hard‑coded COMPONENT_MAP – just drop a .py file into `components/`."""
+
 from __future__ import annotations
 
-from importlib import import_module
+import importlib
+import logging
+import pkgutil
+from typing import Dict, Type
+
+logger = logging.getLogger(__name__)
+
+# Cached registry – built once at import time
+_COMPONENT_REGISTRY: Dict[str, Type] = {}
+_COMPONENT_IDS: list[str] = []
 
 
-COMPONENT_MAP = {
-    "background": "banner_generator.components.background",
-    "watermark": "banner_generator.components.watermark",
-    "terminal": "banner_generator.components.terminal",
-    "icon": "banner_generator.components.icon",
-    "badge": "banner_generator.components.badge",
-    "title": "banner_generator.components.title",
-    "meta_progress": "banner_generator.components.meta_progress",
-    "tagline": "banner_generator.components.tagline",
-    "credits": "banner_generator.components.credits",
-    "status_badges": "banner_generator.components.status_badges",
-    "decorations": "banner_generator.components.decorations",
-    "social_icons": "banner_generator.components.social_icons",
-    "vim_mode": "banner_generator.components.vim_mode",
-    "vim_statusline": "banner_generator.components.vim_statusline",
-    "mini_vim": "banner_generator.components.mini_vim",
-    "vim_keystrokes": "banner_generator.components.vim_keystrokes",
-    "sysinfo": "banner_generator.components.sysinfo",
-    "bash_prompt": "banner_generator.components.bash_prompt",
-    "ascii_logo": "banner_generator.components.ascii_logo",
-    "package_list": "banner_generator.components.package_list",
-    "vim_editor": "banner_generator.components.vim_editor",
-    "quote": "banner_generator.components.quote",
-    "network_diagram": "banner_generator.components.network_diagram",
-    "database_relations_tables": "banner_generator.components.database_relations_tables",
-    "kanban": "banner_generator.components.kanban",
-    "git": "banner_generator.components.git",
-    "metrics": "banner_generator.components.metrics",
-    "article_metadata": "banner_generator.components.article_metadata",
-    "code_snippet": "banner_generator.components.code_snippet",
-    "definition_box": "banner_generator.components.definition_box",
-    "citation": "banner_generator.components.citation",
-    "chart_simple": "banner_generator.components.chart_simple",
-    "equation": "banner_generator.components.equation",
-    "latex_source": "banner_generator.components.latex_source",
-}
+def _discover_components() -> None:
+    """Walk the components package and register every valid component."""
+    global _COMPONENT_REGISTRY, _COMPONENT_IDS
+
+    _COMPONENT_REGISTRY.clear()
+    _COMPONENT_IDS.clear()
+
+    # Import the components package itself (so its __path__ is available)
+    from .. import components as components_pkg   
+
+    # Modules that are infrastructure, not components – skip silently
+    _SKIP_SILENTLY = {'base'}
+
+    for _, module_name, is_pkg in pkgutil.iter_modules(components_pkg.__path__):
+        # Skip sub‑packages and private files (e.g. __init__, _utils)
+        if is_pkg or module_name.startswith('_'):
+            continue
+
+        if module_name in _SKIP_SILENTLY:
+            continue 
+        
+        full_name = f"banner_generator.components.{module_name}"
+        try:
+            module = importlib.import_module(full_name)
+        except Exception as e:
+            logger.warning("Skipping component %s – import error: %s", module_name, e)
+            continue
+
+        # ---------- validation contract ----------
+        if not hasattr(module, 'Component'):
+            logger.warning("Skipping %s – no 'Component' class found", module_name)
+            continue
+
+        comp_class = module.Component
+        if not (hasattr(comp_class, 'component_id') and isinstance(comp_class.component_id, str)):
+            logger.warning("Skipping %s – Component class lacks 'component_id'", module_name)
+            continue
+
+        cid = comp_class.component_id
+        if cid in _COMPONENT_REGISTRY:
+            logger.warning("Duplicate component id '%s' in %s – overriding", cid, module_name)
+
+        _COMPONENT_REGISTRY[cid] = comp_class
+        _COMPONENT_IDS.append(cid)
+
+    # Always sort IDs so config generation is predictable
+    _COMPONENT_IDS.sort()
 
 
 def load_component(component_id: str):
-    if component_id not in COMPONENT_MAP:
+    """Return the Component class for a given id, or raise KeyError."""
+    if component_id not in _COMPONENT_REGISTRY:
         raise KeyError(f"Unknown component_id: {component_id}")
-    module = import_module(COMPONENT_MAP[component_id])
-    return module.Component
+    return _COMPONENT_REGISTRY[component_id]
+
+
+def get_all_component_ids() -> list[str]:
+    """Return a sorted list of all registered component IDs."""
+    return _COMPONENT_IDS[:]
+
+
+# ── initial discovery ──
+_discover_components()
+
+

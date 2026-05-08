@@ -1,0 +1,125 @@
+
+[canvas]
+width  = 800
+height = 1000
+
+theme = "corporate"   # we'll create this theme below
+
+title    = "CORPORATE"
+title_line2 = "BOOK COVER"
+subtitle = "Strategy · Leadership · Innovation"
+tagline  = "ABOUT US"
+
+[components]
+show_background         = true
+show_geometric_shapes   = true
+show_badge              = true
+show_title              = true
+show_subtitle           = true
+show_tagline            = true
+show_multi_text         = true
+show_meta_progress      = true
+show_credits            = true
+show_watermark          = false
+show_decorations        = false
+
+# ------------------------------------------------------------
+# Company name badge (top left)
+# ------------------------------------------------------------
+[badge]
+text = "COMPANY BRAND NAME"
+x    = 60
+y    = 40
+width   = 240
+height  = 36
+font_size = 14
+align = "start"
+
+# ------------------------------------------------------------
+# Title – centred, below the image placeholder
+# ------------------------------------------------------------
+[layout]
+title_font_size      = 56
+subtitle_font_size   = 20
+title_align          = "center"
+title_x              = 400
+subtitle_x           = 400
+title_margin_top     = 460
+subtitle_margin_top  = 40
+
+# ------------------------------------------------------------
+# Year "2050" (right side)
+# ------------------------------------------------------------
+[meta_progress]
+x            = 720
+y_offset     = -20      # relative to bottom of title
+anchor       = "end"
+font_size    = 28
+show_progress = false
+# we only show the "progress" text, not the bar
+progress_text = "2050"
+
+# ------------------------------------------------------------
+# About heading and lorem ipsum paragraphs
+# ------------------------------------------------------------
+[tagline]
+text = "ABOUT US"
+x    = 80
+y    = 680
+font_size = 22
+align = "start"
+show_separator = false
+
+[multi_text]
+x = 80
+y_offset = 30      # after tagline
+font_size = 13
+line_height = 20
+align = "start"
+lines = [
+    "It is a long established fact that a reader will be distracted by the readable",
+    "content of a page when looking at its layout. The point of using Lorem Ipsum",
+    "is that it has a more-or-less normal distribution of letters, as opposed to",
+    "using Content here, content here, making it look like readable English.",
+    "",
+    "It is a long established fact that a reader will be distracted by the readable",
+    "content of a page when looking at its layout. The point of using Lorem Ipsum",
+    "is that it has a more-or-less normal distribution of letters."
+]
+
+# ------------------------------------------------------------
+# Contact info (bottom left)
+# ------------------------------------------------------------
+[credits]
+line1 = "1234567890  |  yourname@mailhere"
+line2 = "your address here"
+x1 = 80
+y1 = 940
+align1 = "start"
+font_size1 = 12
+line2_font_size = 11
+
+# ------------------------------------------------------------
+# Geometric accents – vertical bars, horizontal bars,
+# and a simulated image placeholder (rectangle)
+# ------------------------------------------------------------
+[geometric_shapes]
+vertical_bars = [
+    { x = 30, y = 0, width = 6, height = 1000, color = "#2c3e50", opacity = 0.4 },
+    { x = 764, y = 0, width = 6, height = 1000, color = "#2c3e50", opacity = 0.4 }
+]
+horizontal_bars = [
+    { x = 0, y = 32, width = 800, height = 2, color = "#c0392b", opacity = 0.5 },
+    { x = 0, y = 970, width = 800, height = 2, color = "#c0392b", opacity = 0.5 }
+]
+
+# Large placeholder “image” block (grey rectangle + text)
+rectangles = [
+    { x = 200, y = 180, width = 400, height = 240, fill = "#ecf0f1", stroke = "#bdc3c7", stroke_width = 1, opacity = 0.9 }
+]
+
+# We'll add the "IMAGE NOT INCLUDED" text using a separate component?
+# But we don't have a text-over-rectangle. Simulate with an extra multi_text?
+# For simplicity, we can add a second multi_text block positioned inside the rectangle.
+# To keep it clean, we'll add it as a separate entry later.
+

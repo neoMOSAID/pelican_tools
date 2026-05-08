@@ -1,0 +1,69 @@
+
+theme = "book_cover"
+size = "custom"
+
+[canvas]
+width  = 600
+height = 900
+
+title = "What the Fog Hides"
+subtitle = "A Detective Erika Winter Novel"
+meta = "312 pages · Crime Thriller"
+tagline = "The truth lies beneath the mist"
+
+[components]
+show_background        = true
+show_title             = true
+show_meta_progress     = true
+show_tagline           = true
+show_credits           = true
+show_badge             = true
+show_geometric_shapes  = true
+show_decorations       = false
+show_watermark         = false
+show_social_icons      = false
+show_terminal          = false
+show_status_badges     = false
+
+[credits]
+line1 = "L. J. STRATFORD"
+line2 = "MOSAID Crime"
+
+[badge]
+text = "BESTSELLING SERIES"
+x = 60
+y = 68
+width  = 480
+height = 36
+font_size = 12
+align = "start"
+
+[meta_progress]
+x = 60
+y_offset = 20
+font_size = 12
+show_progress = true
+
+[geometric_shapes]
+# Diagonal cuts and sharp lines – tension
+vertical_bars = [
+    { x = 30,  y = 100, width = 6, height = 700, color = "#8b0000", opacity = 0.3 }
+]
+horizontal_bars = [
+    { x = 30, y = 80,  width = 540, height = 2, color = "#8b0000", opacity = 0.5 },
+    { x = 30, y = 820, width = 540, height = 2, color = "#8b0000", opacity = 0.5 }
+]
+# Blood‑red accent circle
+circles = [
+    { cx = 480, cy = 200, r = 80, fill = "#8b0000", stroke = "none", opacity = 0.15 }
+]
+rectangles = [
+    { x = 40, y = 120, width = 520, height = 660, fill = "none", stroke = "#5c2e2e", stroke_width = 2, opacity = 0.4 }
+]
+
+[layout]
+title_margin_top = 180
+title_font_size  = 48
+title_max_width  = 460
+subtitle_y = 360
+

@@ -1,4 +1,6 @@
 
+# banner_generator/core/context.py (full file)
+
 from __future__ import annotations
 
 from dataclasses import dataclass, field
@@ -13,17 +15,33 @@ class Theme:
     layout: dict
 
 
+def list_available_themes(themes_dir: Path) -> list[str]:
+    """Return all theme names (relative paths from themes_dir) found recursively.
+    Skips files starting with '_'.
+    """
+    if not themes_dir.exists():
+        return []
+    names = []
+    for p in themes_dir.rglob("*.toml"):
+        if p.name.startswith('_'):
+            continue
+        rel = p.relative_to(themes_dir).with_suffix('')
+        names.append(str(rel))
+    return sorted(names)
+
+
 def load_theme(theme_name: str, themes_dir: Path) -> Theme:
-    path = themes_dir / f"{theme_name}.toml"       # now .toml
+    """Load a theme file. theme_name may include subdirectories (e.g. 'catppuccin/mocha')."""
+    path = themes_dir / f"{theme_name}.toml"
     if not path.exists():
         raise FileNotFoundError(f"Theme not found: {path}")
 
-    data = tomllib.loads(path.read_text(encoding="utf-8"))  # parse TOML
+    data = tomllib.loads(path.read_text(encoding="utf-8"))
     name = data.get("name") or theme_name
     colors = data.get("colors") or {}
     layout = data.get("layout") or {}
 
-    # allow direct top-level tokens too
+    # Allow direct top‑level tokens to become layout parameters
     for k, v in data.items():
         if k in {"name", "colors", "layout"}:
             continue
@@ -31,6 +49,8 @@ def load_theme(theme_name: str, themes_dir: Path) -> Theme:
 
     return Theme(name=name, colors=colors, layout=layout)
 
+
+# ── BannerContext unchanged except for using load_theme with the enhanced path logic ──
 
 @dataclass
 class BannerContext:
@@ -41,7 +61,7 @@ class BannerContext:
     layout: dict
     canvas_w: int
     canvas_h: int
-    article: dict = field(default_factory=dict)   # optional article metadata/content
+    article: dict = field(default_factory=dict)
 
     @classmethod
     def from_toml(cls, config_path: Path, themes_dir: Path, article: dict = None) -> "BannerContext":
@@ -67,7 +87,7 @@ class BannerContext:
         # Apply any layout settings directly from the config (e.g., [layout] section)
         if "layout" in cfg and isinstance(cfg["layout"], dict):
             layout.update(cfg["layout"])
-            
+
         overrides = cfg.get("overrides") or {}
         if isinstance(overrides, dict):
             colors.update(overrides.get("colors") or {})
@@ -91,14 +111,14 @@ class BannerContext:
         colors = dict(theme.colors)
         layout = dict(theme.layout)
 
+        # Auto‑detect RTL direction
         title = cfg.get("title", "")
         if any('\u0600' <= c <= '\u06FF' for c in title):
             cfg["direction"] = "rtl"
 
         if "layout" in cfg and isinstance(cfg["layout"], dict):
             layout.update(cfg["layout"])
-            
-        # Apply overrides, just like from_toml
+
         overrides = cfg.get("overrides") or {}
         if isinstance(overrides, dict):
             colors.update(overrides.get("colors") or {})
@@ -109,7 +129,7 @@ class BannerContext:
             "youtube": (1280, 720),
             "twitter": (1200, 675),
             "og": (1200, 630),
-            "thumbnail": (512, 512),  
+            "thumbnail": (512, 512),
         }
         w, h = size_presets.get(size, size_presets["og"])
         if isinstance(cfg.get("canvas"), dict):

@@ -1,0 +1,99 @@
+
+[canvas]
+width  = 800
+height = 1000
+
+theme = "corporate_bold"
+
+title = "WE ALWAYS TRY TO PROVIDE BEST SERVICES"
+subtitle = "CORPORATE DESIGN"
+tagline = "CORPORATE DESIGN"   # second occurrence
+meta = "2050"
+
+[components]
+show_background        = true
+show_geometric_shapes  = true
+show_badge             = true
+show_title             = true
+show_subtitle          = true
+show_tagline           = true
+show_meta_progress     = true
+show_credits           = false
+show_watermark         = false
+show_decorations       = false
+
+# ------------------------------------------------------------
+# Logo badge – top centre
+# ------------------------------------------------------------
+[badge]
+text = "LOGO"
+x    = 400
+y    = 50
+width   = 140
+height  = 46
+font_size = 20
+align = "middle"
+
+# ------------------------------------------------------------
+# Main title – wrapped automatically
+# ------------------------------------------------------------
+[layout]
+title_font_size      = 42
+title_align          = "center"
+title_x              = 400
+title_margin_top     = 180
+title_line_height    = 52
+title_max_width      = 640
+
+subtitle_font_size   = 36
+subtitle_align       = "center"
+subtitle_x           = 400
+subtitle_margin_top  = 80    # after title
+
+tagline_font_size    = 36
+tagline_align        = "center"
+tagline_x            = 400
+tagline_margin_top   = 30    # after subtitle
+
+# ------------------------------------------------------------
+# Year "2050" – bottom right
+# ------------------------------------------------------------
+[meta_progress]
+x            = 720
+y_offset     = 60   # relative to bottom of tagline + some margin
+anchor       = "end"
+font_size    = 56
+show_progress = false
+progress_text = "2050"
+
+# Override meta field to show the year without a progress bar
+# We'll use the `progress` field directly in the TOML root?
+# Actually `meta_progress` picks up `meta` from the root.
+# Let's set `meta = "2050"` and `show_progress = false` – it will show just the text.
+
+# ------------------------------------------------------------
+# "BOOK COVER" label – bottom left
+# ------------------------------------------------------------
+# We'll reuse the `credits` component as a simple label
+[credits]
+line1 = "BOOK COVER"
+line2 = ""
+x1    = 80
+y1    = 940
+align1 = "start"
+font_size1 = 14
+
+# ------------------------------------------------------------
+# Geometric accents – vertical bars, clean framing
+# ------------------------------------------------------------
+[geometric_shapes]
+vertical_bars = [
+    { x = 40,  y = 0, width = 4, height = 1000, color = "#c0392b", opacity = 0.6 },
+    { x = 756, y = 0, width = 4, height = 1000, color = "#c0392b", opacity = 0.6 }
+]
+horizontal_bars = [
+    { x = 0,   y = 120, width = 800, height = 1, color = "#95a5a6", opacity = 0.4 },
+    { x = 0,   y = 880, width = 800, height = 1, color = "#95a5a6", opacity = 0.4 }
+]
+# no rectangles or circles – keep it minimal
+

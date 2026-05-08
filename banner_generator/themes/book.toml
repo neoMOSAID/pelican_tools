@@ -1,0 +1,39 @@
+
+name = "Book"
+
+[colors]
+bg_start = "#fdfaf6"
+bg_mid   = "#f4efe6"
+bg_end   = "#e8e0d5"
+
+title_start = "#2c3e50"
+title_mid   = "#34495e"
+title_end   = "#2c3e50"
+
+subtitle = "#7f8c8d"
+meta     = "#95a5a6"
+
+progress_bar_bg        = "#d5c8b5"
+progress_bar_fill_start = "#c0392b"
+progress_bar_fill_mid   = "#e67e22"
+progress_bar_fill_end   = "#c0392b"
+progress_shimmer        = "#bdc3c7"
+
+separator = "#ccbda8"
+credits   = "#7f8c8d"
+
+badge_bg      = "#2c3e50"
+badge_stroke  = "#c0392b"
+badge_text    = "#ecf0f1"
+
+# Central illustration colour (open book)
+ascii_logo_color  = "#8e44ad"
+ascii_logo_stroke = "#8e44ad"
+
+# Decorations use a very subtle gold accent
+decorative_bracket = "#d4af37"
+dots_color         = "#b68b40"
+
+watermark_opacity   = 0.15
+
+# No terminal or code‑like colours needed

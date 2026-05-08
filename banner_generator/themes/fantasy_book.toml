@@ -1,0 +1,50 @@
+
+name = "Fantasy Book"
+
+[colors]
+# Rich dark background (like aged parchment / midnight)
+bg_start = "#0f0c1f"
+bg_mid   = "#1a142f"
+bg_end   = "#0f0c1f"
+
+# Title gradient – gold to copper
+title_start = "#f3d382"
+title_mid   = "#d4af37"
+title_end   = "#b8860b"
+
+subtitle    = "#c9ab73"
+meta        = "#7e6b4a"
+
+# Author color
+author_color = "#e6c27a"
+
+# Border colours
+border_outer = "#d4af37"
+border_inner = "#b8860b"
+
+# Emblem colours
+emblem_fill   = "none"
+emblem_stroke = "#d4af37"
+
+# Badge colours (series info)
+badge_bg      = "#2b2438"
+badge_stroke  = "#d4af37"
+badge_text    = "#f3d382"
+
+decorative_bracket = "#e6c27a"
+dots_color         = "#d4af37"
+
+[layout]
+title_font_size      = 48
+title_line_height    = 64
+title_max_width      = 420
+title_margin_top     = 180
+
+subtitle_font_size   = 20
+subtitle_line_height = 28
+subtitle_max_width   = 420
+
+title_x    = 90
+title_align = "start"
+subtitle_x = 90
+subtitle_align = "start"

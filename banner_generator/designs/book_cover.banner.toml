@@ -1,0 +1,80 @@
+# No "size" line – canvas is absolute
+[canvas]
+width  = 800
+height = 1000
+
+title    = "Building Modern Static Sites"
+subtitle = "A developer's journey from Pelican to production"
+# moved series info into tagline
+tagline  = "MOSAID Engineering Series · Volume I: Foundations"
+meta     = "Second Edition, 2026"
+theme    = "book"
+
+[components]
+show_background        = true
+show_title             = true
+show_tagline           = true
+show_credits           = true
+show_badge             = true
+show_watermark         = true
+show_decorations       = true
+show_geometric_shapes  = true
+# disable meta_progress to avoid extra spacing
+show_meta_progress     = false
+
+[layout]
+title_font_size      = 48
+subtitle_font_size   = 22
+title_align          = "center"
+title_x              = 400
+subtitle_x           = 400
+title_margin_top     = 80        # title starts near top
+title_line_height    = 56
+subtitle_line_height = 32
+
+[badge]
+text = "MOSAID TUTORIALS"
+x    = 400
+y    = 30          # high up
+width   = 260
+height  = 36
+font_size = 13
+align = "middle"
+
+[tagline]
+text = "MOSAID Engineering Series · Volume I: Foundations"
+x    = 400
+y    = 110
+font_size = 14
+align = "middle"
+show_separator = false
+
+[credits]
+line1   = "MOSAID Publishing"
+line2   = "mosaid.xyz/books"
+x1      = 400
+y1      = 920
+align1  = "middle"
+align2  = "middle"
+
+[geometric_shapes]
+vertical_bars = [
+    { x = 20,  y = 0, width = 8, height = 1000, color = "#8e44ad", opacity = 0.3 },
+    { x = 772, y = 0, width = 8, height = 1000, color = "#8e44ad", opacity = 0.3 }
+]
+horizontal_bars = [
+    { x = 0,   y = 28,  width = 800, height = 2, color = "#d4af37", opacity = 0.6 },
+    { x = 0,   y = 960, width = 800, height = 2, color = "#d4af37", opacity = 0.6 }
+]
+circles = [
+    { cx = 680, cy = 180, r = 60, fill = "none", stroke = "#e67e22", stroke_width = 2, opacity = 0.15 }
+]
+diagonal_lines = true
+
+[watermark]
+opacity = 0.12
+scale   = 1.0
+x_offset = 0
+y_offset = 0
+rotate_dur = "0s"
+

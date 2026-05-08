@@ -1,0 +1,86 @@
+
+theme = "book_cover"
+size = "custom"          # we define custom canvas
+
+[canvas]
+width  = 600
+height = 900
+
+title = "The Shadow of the High King"
+subtitle = "Book One of the Covenant of Light"
+meta = "656 pages · Epic Fantasy"
+tagline = "A throne of ashes, a prophecy of fire"
+
+[components]
+show_background        = true
+show_title             = true
+show_meta_progress     = true
+show_tagline           = true
+show_credits           = true
+show_badge             = true
+show_geometric_shapes  = true
+show_decorations       = true
+show_watermark         = false
+show_social_icons      = false
+show_terminal          = false
+show_status_badges     = false
+
+[credits]
+line1 = "E. L. MORNINGSTAR"
+line2 = "MOSAID Books"
+
+# Series badge
+[badge]
+text = "THE COVENANT OF LIGHT · BOOK I"
+x = 60
+y = 68
+width  = 480
+height = 36
+font_size = 12
+align = "start"
+
+# Meta & progress (page count / series position)
+[meta_progress]
+x = 60
+y_offset = 20
+font_size = 12
+show_progress = true
+progress_bar_width = 480
+progress_y_offset = 30
+
+# Decorative geometric shapes – a subtle sword silhouette / diamonds
+[geometric_shapes]
+# Vertical bars on left and right edges
+vertical_bars = [
+    { x = 20,  y = 80, width = 4, height = 740, color = "#d4af37", opacity = 0.4 },
+    { x = 576, y = 80, width = 4, height = 740, color = "#d4af37", opacity = 0.4 }
+]
+# Top and bottom accent lines
+horizontal_bars = [
+    { x = 20, y = 60, width = 560, height = 2, color = "#e6c27a", opacity = 0.6 },
+    { x = 20, y = 820, width = 560, height = 2, color = "#e6c27a", opacity = 0.6 }
+]
+# Decorative circles (like moons / runes)
+circles = [
+    { cx = 300, cy = 280, r = 180, fill = "none", stroke = "#d4af37", stroke_width = 1, opacity = 0.15 },
+    { cx = 300, cy = 280, r = 120, fill = "none", stroke = "#e6c27a", stroke_width = 0.8, opacity = 0.2 }
+]
+# Rectangles (frame inside border)
+rectangles = [
+    { x = 40, y = 80, width = 520, height = 740, fill = "none", stroke = "#b8860b", stroke_width = 1.5, opacity = 0.3 }
+]
+
+# Subtle pulsing star / bracket
+[decorations]
+code_rain = false
+floating_geometry = true
+pulsing_bracket = true
+scanlines = false
+
+[layout]
+title_margin_top = 140
+title_font_size  = 48
+title_max_width  = 480
+title_line_height = 56
+subtitle_y = 380   # absolute Y for subtitle
+

@@ -1,0 +1,79 @@
+
+theme = "fantasy_book"
+size = "custom"
+
+[canvas]
+width  = 600
+height = 900
+
+title = "The Shadow of the High King"
+subtitle = "Book One of the Covenant of Light"
+meta = "656 pages · Epic Fantasy"
+tagline = "A throne of ashes, a prophecy of fire"
+
+[components]
+show_background        = true
+show_title             = true
+show_meta_progress     = true
+show_tagline           = true
+show_credits           = true
+show_badge             = true
+show_ornamental_border = true
+show_central_emblem    = true
+show_author_plate      = true
+show_watermark         = false
+show_social_icons      = false
+show_terminal          = false
+show_status_badges     = false
+show_decorations       = false
+
+[credits]
+line1 = ""
+line2 = "MOSAID Books"
+
+[badge]
+text = "THE COVENANT OF LIGHT · BOOK I"
+x = 90
+y = 68
+width  = 420
+height = 36
+font_size = 12
+align = "start"
+
+[ornamental_border]
+margin = 24
+outer_stroke = "#d4af37"
+inner_stroke = "#b8860b"
+corner_size = 32
+double_line = true
+
+[central_emblem]
+style = "shield"
+x = 300
+y = 360
+size = 130
+fill = "none"
+stroke = "#d4af37"
+stroke_width = 2.5
+opacity = 0.7
+
+[author_plate]
+author = "E. L. MORNINGSTAR"
+x = 300
+y = 800
+font_size = 20
+color = "#e6c27a"
+align = "middle"
+show_rule = true
+rule_width = 240
+
+[meta_progress]
+x = 90
+y_offset = -10
+font_size = 12
+show_progress = true
+progress_bar_width = 420
+progress_y_offset = 28
+
+[layout]
+title_margin_top = 520
