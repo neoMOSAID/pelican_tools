@@ -253,7 +253,6 @@ def main():
     art.add_argument("--verbose", "-v", action="store_true", help="Verbose output")
 
     # ---- banner subcommand ----
-    # ---- banner subcommand ----
     ban = sub.add_parser("banner", help="Generate a banner from a design preset")
     # Design listing (independent)
     ban.add_argument('--list-designs', action='store_true', help='List all available design names and exit')
