@@ -79,6 +79,19 @@ def cmd_banner(args):
     from banner_generator.core.renderer import BannerRenderer
 
     bcfg = BannerConfig()
+
+    # ── list designs if requested ──
+    if args.list_designs:
+        designs = list_designs(bcfg.DESIGNS_DIR)
+        print("Available designs (use --design <name>):")
+        for d in designs:
+            print(f"  {d}")
+        return
+
+    # If not listing, require either --design or --file
+    if not args.design and not args.file:
+        sys.exit("❌ Either --design or --file is required (or --list-designs to see available designs).")
+
     out_dir = Path(args.out_dir) if args.out_dir else bcfg.OUTPUT_DIR
     out_dir.mkdir(parents=True, exist_ok=True)
 
