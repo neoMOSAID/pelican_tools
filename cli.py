@@ -4,6 +4,7 @@
 import argparse
 import subprocess
 import sys
+import os 
 import tomllib
 from pathlib import Path
 
@@ -12,6 +13,7 @@ from pathlib import Path
 from article_creator.config import Config
 from banner_generator.config import BannerConfig
 from article_creator.edit_workflow import EditWorkflow
+from banner_generator.core.context import list_available_themes
 
 
 def find_design(designs_dir: Path, name: str) -> Path:
@@ -42,6 +44,21 @@ def find_design(designs_dir: Path, name: str) -> Path:
         )
     return candidates[0]
 
+
+def list_designs(designs_dir: Path) -> list[str]:
+    """Return simplified design names (relative path without .banner.toml)."""
+    designs = []
+    for p in designs_dir.rglob("*.banner.toml"):
+        # Remove the suffix .banner.toml, keep relative path
+        rel = p.relative_to(designs_dir).with_suffix('')
+        # Remove the extra ".banner" part (the base name ends with .banner)
+        # The file is e.g. "books/fantasy/fantasy_epic_deluxe.banner.toml"
+        # We want "books/fantasy/fantasy_epic_deluxe"
+        name = str(rel).replace('.banner', '')
+        designs.append(name)
+    return sorted(designs)
+
+
 # ----------------------------------------------------------------------
 def cmd_article(args):
     cfg = Config()
@@ -65,42 +82,77 @@ def cmd_banner(args):
     out_dir = Path(args.out_dir) if args.out_dir else bcfg.OUTPUT_DIR
     out_dir.mkdir(parents=True, exist_ok=True)
 
+    # ── list designs if requested ──
+    if args.list_designs:
+        designs = list_designs(bcfg.DESIGNS_DIR)
+        print("Available designs (use --design <name>):")
+        for d in designs:
+            print(f"  {d}")
+        return
+
+    # Determine config source (file or design)
     if args.file:
-        # ── custom TOML file supplied ──
         config_path = args.file.resolve()
         if not config_path.exists():
             sys.exit(f"❌ Config file not found: {config_path}")
-        ctx = BannerContext.from_toml(config_path, themes_dir=bcfg.THEMES_DIR)
+        # Load config dict so we can override theme later
+        cfg_dict = tomllib.loads(config_path.read_text(encoding="utf-8"))
+        design_path = config_path  # for consistency, not directly used
     else:
-        # ── design preset (existing behaviour) ──
         try:
             design_path = find_design(bcfg.DESIGNS_DIR, args.design)
         except (FileNotFoundError, RuntimeError) as e:
             sys.exit(f"❌ {e}")
-        ctx = BannerContext.from_toml(design_path, themes_dir=bcfg.THEMES_DIR)
+        cfg_dict = tomllib.loads(design_path.read_text(encoding="utf-8"))
 
-    # ── render SVG ──
-    if args.png or not args.svg:
-        ctx.config["render_mode"] = "static"
-        svg = BannerRenderer(ctx).compose()
-        svg_path = out_dir / "banner.svg"
-        svg_path.write_text(svg, encoding="utf-8")
+    # Override theme if --theme provided
+    if args.theme:
+        # Validate theme exists
+        available_themes = list_available_themes(bcfg.THEMES_DIR)
+        if args.theme not in available_themes:
+            sys.exit(f"❌ Unknown theme: {args.theme}. Available: {', '.join(available_themes)}")
+        cfg_dict["theme"] = args.theme
 
+    # Create context
+    ctx = BannerContext.from_dict(cfg_dict, themes_dir=bcfg.THEMES_DIR)
+
+    # Generate SVG and optionally PNG
+    svg_path = out_dir / "banner.svg"
+    png_path = out_dir / "banner.png" if (args.png or not args.svg) else None
+
+    ctx.config["render_mode"] = "static" if png_path else "animated"
+    svg = BannerRenderer(ctx).compose()
+    svg_path.write_text(svg, encoding="utf-8")
+
+    if png_path:
         exe = "magick"
         if subprocess.run(["bash", "-lc", "command -v magick >/dev/null 2>&1"], check=False).returncode != 0:
             exe = "convert"
-        png_path = out_dir / "banner.png"
         subprocess.run(
             [exe, str(svg_path), "-resize", f"{ctx.canvas_w}x{ctx.canvas_h}!", str(png_path)],
             check=True,
         )
         print(f"PNG: {png_path}")
     else:
-        ctx.config["render_mode"] = "animated"
-        svg = BannerRenderer(ctx).compose()
-        svg_path = out_dir / "banner.svg"
-        svg_path.write_text(svg, encoding="utf-8")
         print(f"SVG: {svg_path}")
+
+    # Preview
+    if args.preview:
+        if png_path and png_path.exists():
+            try:
+                subprocess.Popen(
+                    ["feh", str(png_path)],
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
+                    stdin=subprocess.DEVNULL,
+                    start_new_session=True,
+                    close_fds=True,
+                )
+            except FileNotFoundError:
+                sys.exit("❌ feh not found. Install feh or use another image viewer.")
+        else:
+            print("⚠️  No PNG generated; feh cannot preview SVG. "
+                  "Open the SVG file in a browser or use an SVG-capable viewer.")
 
 
 def cmd_thumbnail(args):
@@ -145,7 +197,6 @@ def cmd_thumbnail(args):
 
     # Render
     ctx = BannerContext.from_dict(cfg, themes_dir=bcfg.THEMES_DIR)
-    # Thumbnails are always static (no typing animations)
     ctx.config["render_mode"] = "static"
     svg = BannerRenderer(ctx).compose()
 
@@ -154,7 +205,7 @@ def cmd_thumbnail(args):
     svg_path = out_dir / "thumbnail.svg"
     svg_path.write_text(svg, encoding="utf-8")
 
-    # Convert to PNG (required for thumbnails)
+    # Convert to PNG
     exe = "magick"
     if subprocess.run(["bash", "-lc", "command -v magick >/dev/null 2>&1"], check=False).returncode != 0:
         exe = "convert"
@@ -189,14 +240,27 @@ def main():
     art.add_argument("--verbose", "-v", action="store_true", help="Verbose output")
 
     # ---- banner subcommand ----
+    # ---- banner subcommand ----
     ban = sub.add_parser("banner", help="Generate a banner from a design preset")
-    group = ban.add_mutually_exclusive_group(required=True)
-    group.add_argument('--design', help='Design name (e.g., vim_article or books/fantasy/fantasy_book_cover)')
+    # Design listing (independent)
+    ban.add_argument('--list-designs', action='store_true', help='List all available design names and exit')
+
+    # Design or file (mutually exclusive, but not required if --list-designs)
+    group = ban.add_mutually_exclusive_group(required=False)
+    group.add_argument('--design', help='Design name (e.g., vim_article or books/fantasy/fantasy_book_cover). Use --list-designs to see all.')
     group.add_argument('--file', type=Path, help='Path to a complete banner .toml configuration')
+
+    # Theme (optional)
+    bcfg = BannerConfig()
+    available_themes = list_available_themes(bcfg.THEMES_DIR)
+    ban.add_argument('--theme', choices=available_themes,
+                    help=f'Color theme to use (overrides design\'s theme). Available: {", ".join(available_themes)}')
+    # Output options
     ban.add_argument("--out-dir", default=None, help="Output directory (default: banner_generator/output)")
     ban.add_argument("--svg", action="store_true", help="Output SVG only")
     ban.add_argument("--png", action="store_true", help="Output PNG")
-
+    ban.add_argument("--preview", action="store_true", help="Open the generated PNG in feh")
+    
     # ---- thumbnail subcommand ----
     thumb = sub.add_parser("thumbnail", help="Generate a square thumbnail")
     thumb.add_argument("--design", default="thumbnail_default",
@@ -228,4 +292,3 @@ def main():
 if __name__ == "__main__":
     main()
 
-    

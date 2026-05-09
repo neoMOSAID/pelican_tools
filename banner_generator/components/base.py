@@ -1,4 +1,5 @@
 
+
 # banner_generator/components/base.py
 
 from __future__ import annotations
@@ -10,7 +11,10 @@ class BaseComponent(ABC):
     """Self‑contained visual element that renders SVG fragments."""
 
     component_id = "base"
-    z_index = 100               # default layer priority (0 = bottom, 1000 = top)
+    z_index = 100               # bottom = 0, top = 1000
+    section_name = None         # TOML section name (e.g., "terminal") or None for top-level
+    config_schema = {}          # dict of key -> {type, default, help}
+    description = ""            # Short description for the component (used in [components] section)
 
     def __init__(self, context, y_offset: int = 0):
         self.ctx = context

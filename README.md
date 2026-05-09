@@ -1,10 +1,12 @@
+
+
 # pelican_tools
 
 ![Pelican Tools Banner](tests/banner.svg)
 
 **pelican_tools** provides a flexible, SVG‑based **banner and thumbnail generator**
 for [Pelican](https://getpelican.com/) static sites.
-Create beautiful, technogeek Open Graph images and square thumbnails
+Create beautiful, tech‑oriented Open Graph images and square thumbnails
 from simple TOML configuration files.
 
 📝 **Read the blog post:**
@@ -21,6 +23,7 @@ from simple TOML configuration files.
   - [`banner` – generate a banner](#banner--generate-a-banner)
   - [`thumbnail` – generate a thumbnail](#thumbnail--generate-a-thumbnail)
 - [Configuration & customisation](#configuration--customisation)
+- [Adding new components, themes & designs](#adding-new-components-themes--designs)
 - [Project structure](#project-structure)
 - [Dependencies](#dependencies)
 - [License](#license)
@@ -35,11 +38,11 @@ from simple TOML configuration files.
   - Git log, Kanban board, database tables
   - Vim editor mockups, ASCII art, system info
   - Quote blocks, definition boxes, charts, badges, social icons, and more
-- **14 themes** – Dracula, Nord, Gruvbox, Catppuccin, Solarized, and others
-- **14 design presets** – ready‑to‑use layouts for tech, vim, docker, python, latex, …
+- **14 ready‑made colour themes** – Dracula, Nord, Gruvbox, Catppuccin, Solarized, and others
+- **20+ design presets** organised by category – articles/tech, books/fantasy, books/corporate, …
 - **Square thumbnails** – 512×512 images for article previews, using the same rich components
-- **Batch‑friendly CLI** – generate banners and thumbnails from the command line,
-  ideal for scripting and CI/CD
+- **Extensible without touching a single line of Python** – drop new components, themes, or designs into their respective folders and they are automatically discovered when the app starts.
+- **Batch‑friendly CLI** – generate banners and thumbnails from the command line, ideal for scripting and CI/CD
 - **TOML‑native** – all configuration is clean, human‑readable TOML (no JSON, no YAML)
 - **Zero external Python dependencies** – uses only the standard library (`tomllib`)
 
@@ -71,8 +74,7 @@ from simple TOML configuration files.
 
 4. **Set up your environment**
 
-   Edit `banner_generator/config.py` to set default paths if needed, or rely on the
-   default locations inside the project. Usually no changes are necessary.
+   The default paths are defined in `banner_generator/config.py`; you normally won’t need to change them.
 
 ---
 
@@ -84,6 +86,12 @@ Generate a banner from a design preset:
 python cli.py banner --design vim_article --png
 ```
 
+Use a nested design name (recursive discovery works out of the box):
+
+```bash
+python cli.py banner --design books/fantasy/fantasy_book_cover --out-dir ./covers
+```
+
 Generate a thumbnail with custom text:
 
 ```bash
@@ -91,7 +99,7 @@ python cli.py thumbnail --design thumbnail_default \
   --title "My Post" --subtitle "A tutorial"
 ```
 
-Use your own complete TOML configuration:
+Supply your own complete TOML configuration:
 
 ```bash
 python cli.py banner --file /path/to/banner.toml --out-dir ./output --svg
@@ -109,9 +117,8 @@ python cli.py banner (--design DESIGN | --file FILE) [--out-dir DIR] [--svg|--pn
 
 **Modes**
 
-- `--design <name>` – use a built‑in design preset (e.g. `vim_article`, `linux_homelab`).
-- `--file <path>` – point to a complete `.toml` configuration file (the same format
-  used by the generator).
+- `--design <name>` – use a design preset. The name can be a simple file stem (e.g. `vim_article`) or a nested path like `articles/tech/linux_homelab`. The tool searches recursively, so you can organise designs into subdirectories without touching any code.
+- `--file <path>` – point to a complete `.toml` configuration file.
 
 **Options**
 
@@ -138,17 +145,43 @@ python cli.py thumbnail [--design DESIGN] [--title TITLE]
 
 The banner engine is driven by **three layers**:
 
-1. **Themes** (`banner_generator/themes/*.toml`) – colour palettes and global layout
-   defaults.
-2. **Designs** (`banner_generator/designs/*.banner.toml`) – presets that enable specific
-   components (terminal, code snippet, etc.) and set their parameters.
+1. **Themes** (`banner_generator/themes/*.toml`) – colour palettes and global layout defaults.
+2. **Designs** (`banner_generator/designs/*.banner.toml`) – presets that enable specific components (terminal, code snippet, etc.) and set their parameters.
 3. **Per‑use configs** – any TOML file you write or generate.
 
-All configs are TOML. The simplest way to get started is to copy an existing design
-and tweak the values.
+All configs are TOML. The simplest way to get started is to copy an existing design and tweak the values.
 
-The component library (`banner_generator/components/`) is modular – new visual
-elements can be added by implementing a simple `Component` class.
+Both themes and designs can be placed in **subdirectories** and the app will find them automatically – simply reference the full path from the root of the directory (e.g. `theme = "catppuccin/mocha"`, `design = "books/fantasy/fantasy_book_cover"`).
+
+---
+
+## Adding new components, themes & designs
+
+The system is **extension‑first**: you never need to edit core Python code to add visual
+elements, colour schemes, or layout presets.
+
+### Components
+- Drop a `.py` file into `banner_generator/components/`.
+- It must contain a class called `Component` that inherits from `BaseComponent` (see `base.py`).
+- The class must define a string `component_id` and an integer `z_index` for layering.
+- The component is automatically registered on startup and becomes available in every
+  banner config under `[components] show_<id>`.
+
+### Themes
+- Place a `.toml` file anywhere under `banner_generator/themes/` (subdirectories allowed).
+- The file must contain tables `[colors]` and `[layout]` with appropriate SVG colour keys.
+- Themes are discovered recursively and listed in the config comments; you use them via
+  `theme = "your/theme"`.
+
+### Designs
+- Add a `*.banner.toml` file in any subfolder of `banner_generator/designs/`.
+- Follow the same structure as the existing presets: declare a theme, optional size, and
+  enable the components you want in the `[components]` section.
+- The CLI and interactive tools will find the design by its relative path (e.g.
+  `books/mystery/mystery_book_cover`).
+
+> **No modifications to `factory.py`, `renderer.py`, or `cli.py` are required.** Simply
+> adding files to the right directories is enough – the auto‑discovery handles the rest.
 
 ---
 
@@ -158,9 +191,12 @@ elements can be added by implementing a simple `Component` class.
 pelican_tools/
 ├── banner_generator/         # SVG rendering engine
 │   ├── core/                 # Context, canvas, factory, renderer
-│   ├── components/           # All 35+ visual components
-│   ├── themes/               # Colour themes (dracula, nord, gruvbox, …)
-│   ├── designs/              # Pre‑made layout presets
+│   ├── components/           # All 35+ visual components (auto‑discovered)
+│   ├── themes/               # Colour themes – nested folders supported
+│   ├── designs/              # Layout presets – organised in subdirectories
+│   │   ├── articles/         #    technology and academic articles
+│   │   ├── books/            #    book covers (fantasy, mystery, corporate, …)
+│   │   └── thumbnails/       #    thumbnail presets
 │   ├── config.py             # Banner generator paths
 │   └── generate.py           # Standalone generation script (legacy)
 ├── tests/                    # Sample banners & thumbnails (SVG/PNG)
@@ -190,3 +226,4 @@ This project is licensed under the MIT License.
 ---
 
 **Happy generating – may your Pelican banners always stand out!**
+
